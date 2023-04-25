@@ -1,13 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
-
-url = "https://www.jma.go.jp/bosai/forecast/#area_type=class20s&area_code=2610000"
-res = requests.get(url)
-if not res.ok:
-    print(f"ページの取得に失敗しました。status: {res.status_code}, reason: {res.reason}")
-else:
-    html = res.content
-    soup = BeautifulSoup(html)
-    # print(soup)
-    elems = soup.select("#short-table-container > div > div > div > div.contents-wide-table-scroll > table > tr:nth-child(4) > td:nth-child(1)")
-    print(elems[0].contents[0])
+list = [1,2,3,4,5]
+for num in list:
+    print(num)
+print(list[0])
