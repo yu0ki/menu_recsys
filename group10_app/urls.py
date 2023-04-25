@@ -17,20 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from menu_recsys.views import home, signup, login, user_home, search, recommend
-
+from accounts.views import register
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # ログイン前のページ（ログインページへのリンクなどを貼る）
-    path("/", home),
-    # サインアップ
-    path('signup', signup),
-    # ログイン
-    path('login', login),
-    # ユーザマイページ
+    path("", home),
+    path("signup/", signup),
+    path("login/", login),
     path("user_home/", user_home),
-    # 検索条件設定ページ
-    path("search", search),
-    # 検索結果ページ
-    path("recommend", recommend)
+    path("search/", search),
+    path("recommend/", recommend),
+    path('accounts/register/', register, name='register'),
 ]
