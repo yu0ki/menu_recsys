@@ -9,5 +9,5 @@ else:
     html = res.content
     soup = BeautifulSoup(html)
     # print(soup)
-    elems = soup.select("#main > div.forecastCity > table > tbody > tr > td:nth-child(1) > div > p.pict > img")
+    elems = soup.select("#main > div.forecastCity > table > tr > td > div > p.pict > img")[0].attrs["alt"]
     print(elems)
