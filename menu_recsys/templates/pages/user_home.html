@@ -1,101 +1,41 @@
-
-
-<!-- YOUR CODE HERE -->
 <!DOCTYPE html>
 <html>
-<head>
-	<title>ペット</title>
-	<style>
-		body {
-	        margin: 0;
-	        padding: 0;
-        }
+	<head>
+		<meta charset="utf-8">
+		<title>PlatePandA</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+		<link rel="stylesheet" href="../layouts/head_foot.css" />
 
-        header {
-	        background-color: #ccc;
-	        height: 100px;
-	        text-align: center;
-        }
+	</head>
 
-        nav {
-	        background-color: #eee;
-	        float: left;
-	        width: 200px;
-	        height: 500px;
-        }
+	<body>
+		<header>
+			<div class="container">
+				<h1 class="title"><a id="pp_head" href="../pages/user_home.html" style="color:black">PlatePandA</a></h1>
+				<h2 class="subtitle"> <!-- 書くとしたらページタイトル --></h2>
+				<a href="../pages/search.html"><img src="images/search_mushimegane.png"></a>
+			</div>
+		</header>
+		
+		<main>
+			<section>
+				<h2>セクション1</h2>
+				<p><a href="https://panda.ecs.kyoto-u.ac.jp/portal"><img src="images/animal_bear_panda.png"></a>コンテンツ1</p>
+			</section>
+			<section>
+				<h2>セクション2</h2>
+				<p>コンテンツ2</p>
+			</section>
+		</main>
+		
 
-        nav ul {
-	        list-style-type: none;
-	        margin: 0;
-	        padding: 0;
-        }
+		<footer> 
+			<div class="content has-text-centered">
+			2023 ©PlatePandA
+			</div>
+		</footer>
 
-        nav li {
-	        margin: 5px;
-        }
-
-        nav a {
-	        display: block;
-	        padding: 5px;
-	        background-color: #fff;
-	        text-decoration: none;
-        }
-
-        main {
-	        margin-left: 220px;
-	        padding: 10px;
-        }
-
-        section {
-	        background-color: #fff;
-	        margin-bottom: 10px;
-	        padding: 10px;
-        }
-
-        aside {
-	        background-color: #eee;
-	        float: right;
-	        width: 200px;
-	        height: 500px;
-        }
-
-        footer {
-	        background-color: #ccc;
-	        height: 50px;
-	        text-align: center;
-        }
-
-	</style>
-</head>
-<body>
-    <header>
-		<h1>ヘッダー<a href="file:///C:/menu_recsys/menu_recsys/templates/pages/search.html"><img src="images/search_mushimegane.png"></a></h1>
-	</header>
-	<nav>
-		<ul>
-			<li><a href="#">メニュー1</a></li>
-			<li><a href="#">メニュー2</a></li>
-			<li><a href="#">メニュー3</a></li>
-		</ul>
-	</nav>
-	<main>
-		<section>
-			<h2>セクション1</h2>
-			<p><a href="https://panda.ecs.kyoto-u.ac.jp/portal"><img src="images/animal_bear_panda.png"></a>コンテンツ1</p>
-		</section>
-		<section>
-			<h2>セクション2</h2>
-			<p>コンテンツ2</p>
-		</section>
-	</main>
-	<aside>
-		<h3>サイドバー</h3>
-		<p>サイドバーのコンテンツ</p>
-	</aside>
-	<footer>
-		<p>フッター</p>
-	</footer>
-	
-
-</body>
+	</body>
 </html>
