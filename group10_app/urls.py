@@ -24,13 +24,14 @@ urlpatterns = [
     # ログイン前のページ（ログインページへのリンクなどを貼る）
     path("/", home),
     # サインアップ
-    path('signup', signup),
+    path('signup/', signup),
     # ログイン
-    path('login', login),
+    path('login/', login),
     # ユーザマイページ
     path("user_home/", user_home),
     # 検索条件設定ページ
-    path("search", search),
+    path("search/", search),
     # 検索結果ページ
-    path("recommend", recommend)
+    path("recommend/", recommend)
+
 ]
