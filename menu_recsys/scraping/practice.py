@@ -80,18 +80,49 @@ else:
     print("veg: ", veg)
 
     # 鉄（mg）
-    
+    iron = soup.select(
+        "#main > ul > li:nth-child(9) > span.price"
+    )[0].contents[0]
+    iron = re.sub(r"\D", "", iron)
+    print("iron: ", iron)
 
     # ビタミンA（μg）
+    vitamin_a = soup.select(
+        "#main > ul > li:nth-child(10) > span.price"
+    )[0].contents[0]
+    vitamin_a = re.sub(r"\D", "", vitamin_a)
+    print("vitamin_a: ", vitamin_a)
+
 
     # ビタミンB1（mg）
+    vitamin_b1 = soup.select(
+        "#main > ul > li:nth-child(11) > span.price"
+    )[0].contents[0]
+    vitamin_b1 = re.sub(r"\D", "", vitamin_b1)
+    print("vitamin_b1: ", vitamin_b1)
+    
 
     # ビタミン B2（mg）
+    vitamin_b2 = soup.select(
+        "#main > ul > li:nth-child(12) > span.price"
+    )[0].contents[0]
+    vitamin_b2 = re.sub(r"\D", "", vitamin_b2)
+    print("vitamin_b2: ", vitamin_b2)
+    
 
     # ビタミンC（16mg）
+    vitamin_c = soup.select(
+        "#main > ul > li:nth-child(13) > span.price"
+    )[0].contents[0]
+    vitamin_c = re.sub(r"\D", "", vitamin_c)
+    print("vitamin_c: ", vitamin_c)
+    
 
     # 原産地（一応・・・けど使いにくいデータ形式）
-    
+    place_of_origin = soup.select(
+        "#main > ul > li:nth-child(14) > span.price"
+    )[0].contents[0]
+    print("place_of_origin: ", place_of_origin)
 
 
 
