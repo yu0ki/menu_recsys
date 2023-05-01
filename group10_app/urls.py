@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from menu_recsys.views import home, signup, login, user_home, search, recommend
+from menu_recsys.views import home, signup, login, user_home, search, recommend, user_info_input
 
 
 urlpatterns = [
@@ -32,6 +32,7 @@ urlpatterns = [
     # 検索条件設定ページ
     path("search/", search),
     # 検索結果ページ
-    path("recommend/", recommend)
-
+    path("recommend/", recommend),
+    # ユーザ情報入力ページ
+    path("user_home/user_info_input/", user_info_input())
 ]

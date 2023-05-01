@@ -85,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'menu_recsys',  # database name
         'USER': 'root',     #your database account
-        'PASSWORD': '', #your database password
+        'PASSWORD': 'YM&2000?lqs=7011', #your database password
         'HOST': '127.0.0.1',  # your host
         'PORT': 3306,
     }

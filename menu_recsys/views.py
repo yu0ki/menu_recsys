@@ -47,11 +47,13 @@ def logout(request):
 def user_home(request):
     return render(request, 'pages/user_home.html')
 
+def user_info_input(request):
+
+    pass
 
 # 検索条件入力
 def search(request):
     pass
-
 
 # 検索結果
 def recommend(request):
