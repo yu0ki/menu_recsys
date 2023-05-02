@@ -22,7 +22,7 @@ from accounts.views import register
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home),
-    path("signup/", signup),
+    path("signup/", signup, name='signup'),
     path("login/", login),
     path("user_home/", user_home),
     path("search/", search),

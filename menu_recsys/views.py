@@ -1,4 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.http import HttpResponse
+
+def my_view(request):
+    # Do some work here...
+    return HttpResponse("Hello, world!")
+
+
 
 # ログイン前ホーム画面
 def home(request):
@@ -8,11 +17,20 @@ def home(request):
 # ログイン・サインアップ関連
 # サインアップ
 def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("https://www.baidu.com")
+    else:
+        form = UserCreationForm()
+    return render(request, "pages/signup.html", {"form": form})
     pass
 
 
 # ログイン
-def login(request):
+def login(request, user):
     pass
 
 
