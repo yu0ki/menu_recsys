@@ -16,23 +16,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from menu_recsys.views import home, signup, login, user_home, search, recommend, user_info_input
+from menu_recsys.views import home, signup, login, user_home, search, recommend, user_info_input, db_update
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin", admin.site.urls),
     # ログイン前のページ（ログインページへのリンクなどを貼る）
     path("/", home),
     # サインアップ
-    path('signup/', signup),
+    path('signup', signup),
     # ログイン
-    path('login/', login),
+    path('login', login),
     # ユーザマイページ
-    path("user_home/", user_home),
+    path("user_home", user_home),
     # 検索条件設定ページ
-    path("search/", search),
+    path("search", search),
     # 検索結果ページ
-    path("recommend/", recommend),
+    path("recommend", recommend),
     # ユーザ情報入力ページ
-    path("user_home/user_info_input/", user_info_input())
+    path("user_home/user_info_input", user_info_input),
+    # just used for test
+    path("temportate/DB_update", db_update)
 ]

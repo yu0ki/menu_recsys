@@ -184,7 +184,7 @@ def get_menu_urls(canteen_id: int):
     if not res.ok:
         print(f"ページの取得に失敗しました。status: {res.status_code}, reason: {res.reason}")
     else:
-        driver = webdriver.Chrome("./chromedriver")
+        driver = webdriver.Chrome("./chromedriver.exe")
         driver.get(url)
         
         # トグルを展開するためのJavaScriptコード
@@ -239,6 +239,3 @@ def get_menu_urls(canteen_id: int):
                     result_urls.append("https://west2-univ.jp/sp/" + url)
 
         return result_urls
-
-
-

@@ -22,7 +22,7 @@ class Canteen(models.Model):
 class Menu(models.Model):
     dish_id = models.CharField(max_length=16, primary_key=True)
     canteen_id = models.ForeignKey(to="Canteen", on_delete=models.CASCADE)
-    dish_name = models.CharField(max_length=64, blank=False, null=False, default=dish_id)
+    dish_name = models.CharField(max_length=64, blank=False, null=False, default="unknown")
     dish_en_name = models.CharField(max_length=64, null=True, blank=True)
     price = models.IntegerField(null=True, blank=True)
     energy = models.IntegerField(null=True, blank=True)
@@ -39,9 +39,10 @@ class Menu(models.Model):
     vitaminC = models.IntegerField(null=True, blank=True)
     place_of_origin = models.CharField(max_length=64, blank=True, null=False, default="Unknown")
     dish_url = models.URLField()
+    allergies = models.CharField(max_length=64, null=True, blank=True)
+
 
 class History_order(models.Model):
     user_id = models.ForeignKey(to="User", on_delete=models.CASCADE)
     dish_id = models.ForeignKey(to="Menu", on_delete=models.CASCADE)
     order_date = models.DateField()
-

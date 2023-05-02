@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from menu_recsys.models import User
+from menu_recsys.DB_update import DB_update as DBU
 
 
 # ログイン前ホーム画面
@@ -47,14 +48,22 @@ def logout(request):
 def user_home(request):
     return render(request, 'pages/user_home.html')
 
-def user_info_input(request):
 
+def user_info_input(request):
     pass
+
 
 # 検索条件入力
 def search(request):
     pass
 
+
 # 検索結果
 def recommend(request):
     pass
+
+
+def db_update(request):
+    DBU.canteen_database_update()
+    DBU.menu_database_update(canteen_id=650111)
+    return render(request, 'pages/user_home.html')
