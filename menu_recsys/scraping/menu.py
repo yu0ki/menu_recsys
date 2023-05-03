@@ -5,12 +5,12 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 # メニュー詳細ページから、１つのメニューの詳細情報を取得する関数
 # 入力：メニューURL
-def get_menu_info(url: str):
+def get_menu_info(url: str, en_name_exists=True):
     # url = "https://west2-univ.jp/sp/detail.php?t=650111&c=814167"
     res = requests.get(url)
     if not res.ok:
@@ -24,8 +24,11 @@ def get_menu_info(url: str):
         # print("dish_name: ", dish_name)
 
         # 商品名英語
-        dish_en_name = soup.select("#main > h1")[0].contents[1].contents[0]
-        # print("dish_en_name: ", dish_en_name)
+        if en_name_exists:
+            dish_en_name = soup.select("#main > h1")[0].contents[1].contents[0]
+            # print("dish_en_name: ", dish_en_name)
+        else:
+            dish_en_name = ""
 
         # 商品画像
         image_url = soup.select("#main > div.menuImgBox > img")[0]["src"]
@@ -184,9 +187,11 @@ def get_menu_urls(canteen_id: int):
     if not res.ok:
         print(f"ページの取得に失敗しました。status: {res.status_code}, reason: {res.reason}")
     else:
-        driver = webdriver.Chrome("./chromedriver.exe")
+        # driver = webdriver.Chrome("./chromedriver.exe")
+        driver = webdriver.Chrome(ChromeDriverManager().install())
+
         driver.get(url)
-        
+
         # トグルを展開するためのJavaScriptコード
         expand_script = '''
         var toggles = document.querySelectorAll('.toggleTitle');
