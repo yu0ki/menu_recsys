@@ -5,28 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5724b469-d883-480a-ad12-0d5b1e3085c5" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu_recsys/migrations/0002_alter_menu_canteen.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu_recsys/migrations/0003_alter_history_order_dish_alter_history_order_user_and_more.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu_recsys/migrations/0004_alter_menu_dish_en_name.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu_recsys/migrations/0005_alter_menu_dish_en_name.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group10_app/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/group10_app/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group10_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/group10_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/DB_update/DB_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/database_update/database_update.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/migrations/0002_user_user_email_user_user_pwd_alter_user_sex_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/migrations/0003_alter_user_height_alter_user_sex_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/migrations/0004_canteen_alter_user_user_name_menu.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/migrations/0005_rename_canteen_menu_canteen_id_history_order.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/migrations/0006_menu_allergies_alter_menu_dish_name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/scraping/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/scraping/menu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/scraping/practice.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/scraping/practice.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/templates/pages/recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/templates/pages/recommend.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/templates/pages/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/templates/pages/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/templates/pages/user_home.html" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/templates/pages/user_home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +206,7 @@
       <workItem from="1682584203970" duration="1291000" />
       <workItem from="1683092293300" duration="1408000" />
       <workItem from="1683115148908" duration="1001000" />
-      <workItem from="1683116195198" duration="29889000" />
+      <workItem from="1683116195198" duration="30362000" />
     </task>
     <servers />
   </component>
