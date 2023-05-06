@@ -1,7 +1,5 @@
 # このファイルには画像処理関連の関数を書いていきます
 
-from PIL import Image
-import numpy as np
 from google.cloud import vision
 from google.oauth2 import service_account
 import cv2
