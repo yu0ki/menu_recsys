@@ -1,51 +1,47 @@
-<!-- https://deecode.net/?p=382 -->
-<!-- カメラが起動するページ -->
+{% extends 'layouts/base.html' %}
 
+{% block content %}
+  <h2>カメラから画像をアップロードする</h2>
+  <video id="video" width="640" height="480"></video>
+  <br>
+  <button id="capture">撮影する</button>
+  <br>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <br>
+  <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="upload">
+    {% csrf_token %}
+    <input type="file" name="image" id="upload_image">
+    <input type="submit" value="アップロード">
+  </form>
 
+  <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="capture_form">
+    {% csrf_token %}
+    <input type="hidden" name="image" id="capture_image">
+  </form>
 
-<!-- カメラ -->
-<div class="is-relative">
-    <div id="image_area">
-        <img src="/video_feed"/>
-    </div>
+  <script>
+    console.log("line 20")
+    navigator.mediaDevices.getUserMedia({video: true})
+      .then(function(stream) {
+        console.log("start video capture")
+        var video = document.getElementById("video");
+        video.srcObject = stream;
+        video.play();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 
-    <!-- 撮影ボタン -->
-    <!-- https://rurukblog.com/post/djangogoodbtnusernone/ -->
-    <form method="post" action="{% url 'lunch_photo' %}" name="myform" enctype="multipart/form-data" onsubmit="capture(event)" style="position: absolute; bottom: 10%; left: 50%;">
-        {% csrf_token %}
-        <input type="hidden" id="image_form" name="image">
-        <input type="submit" value="" class="has-background-danger-light has-text-danger" style="border-radius: 50%; width: 30px; height: 30px; border-color: pink" />
-    </form>
-</div>
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
 
-<script>
-    const img = document.querySelector('img');
-
-    // img の高さと幅を画面に合わせる
-    var screenHeight = window.innerHeight;
-    var screenWidth = window.innerWidth;
-    img.setAttribute("height", screenHeight);
-    img.setAttribute('width', screenWidth);
-
-    console.log(img)
-    console.log(img.width, img.height)
-    function capture(event) {
-        event.preventDefault();
-        // 画像取得：https://www.ykrods.net/posts/2019/10/09/getting-image-data-with-js/#:~:text=canvas%20%E3%81%AB%E4%B8%80%E5%BA%A6%E7%94%BB%E5%83%8F%E3%82%92,')%3B%20const%20canvas%20%3D%20document.
-        const img = document.querySelector('img');
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        canvas.getContext('2d').drawImage(img, 0, 0);
-
-        // canvasを画像変換して出力：https://cly7796.net/blog/javascript/convert-canvas-to-image/
-        image_form = document.getElementById("image_form")
-        image_form.value = canvas.toDataURL("image/jpeg");
-    
-        //submit()でフォームの内容を送信
-        document.myform.submit();
-    }
-
-</script>
-
-
+    document.getElementById("capture").addEventListener("click", function() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0);
+      var dataURL = canvas.toDataURL();
+      document.getElementById("capture_image").value = dataURL;
+      document.getElementById("capture_form").submit();
+    });
+  </script>
+{% endblock %}
