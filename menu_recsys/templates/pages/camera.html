@@ -1,47 +1,49 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-  <h2>カメラから画像をアップロードする</h2>
-  <video id="video" width="640" height="480"></video>
-  <br>
-  <button id="capture">撮影する</button>
-  <br>
-  <canvas id="canvas" style="display:none;"></canvas>
-  <br>
-  <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="upload">
-    {% csrf_token %}
-    <input type="file" name="image" id="upload_image">
-    <input type="submit" value="アップロード">
-  </form>
+    <!-- <video id="video" width="640" height="480"></video>
+    <br> -->
+    <!-- カメラ -->
+    <div class="video-container">
+        <video id="video">
+        </video>
+    
+        <script>
+            document.getElementById("video").width = window.innerWidth;
+            document.getElementById("video").height = window.innerHeight;
+        </script>
+    
+        <button id="capture" class="is-danger">撮影する</button>
+        <br>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
 
-  <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="capture_form">
-    {% csrf_token %}
-    <input type="hidden" name="image" id="capture_image">
-  </form>
+    <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="capture_form">
+        {% csrf_token %}
+        <input type="hidden" name="image" id="capture_image">
+    </form>
 
-  <script>
-    console.log("line 20")
-    navigator.mediaDevices.getUserMedia({video: true})
-      .then(function(stream) {
-        console.log("start video capture")
-        var video = document.getElementById("video");
-        video.srcObject = stream;
-        video.play();
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    <script>
+        navigator.mediaDevices.getUserMedia({video: true})
+        .then(function(stream) {
+            var video = document.getElementById("video");
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 
-    var canvas = document.getElementById("canvas");
-    var context = canvas.getContext("2d");
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
 
-    document.getElementById("capture").addEventListener("click", function() {
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0);
-      var dataURL = canvas.toDataURL();
-      document.getElementById("capture_image").value = dataURL;
-      document.getElementById("capture_form").submit();
-    });
-  </script>
+        document.getElementById("capture").addEventListener("click", function() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0);
+        var dataURL = canvas.toDataURL();
+        document.getElementById("capture_image").value = dataURL;
+        document.getElementById("capture_form").submit();
+        });
+    </script>
 {% endblock %}

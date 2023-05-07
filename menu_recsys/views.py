@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from django.http import StreamingHttpResponse
 from django.views import View
-import cv2
 
 
 # ログイン前ホーム画面
@@ -45,6 +43,7 @@ def recommend(request):
 class Camera(View):
     def get(self, request):
         return render(request, 'pages/camera.html', {})
+
 
 # 撮った写真を表示
 def lunch_photo(request):
