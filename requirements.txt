@@ -3,7 +3,7 @@ autopep8==1.6.0
 backports.zoneinfo==0.2.1
 beautifulsoup4==4.12.2
 black==23.3.0
-blas==2.116
+blas==
 blas-devel==3.9.0
 brotlipy==0.7.0
 bzip2==1.0.8
