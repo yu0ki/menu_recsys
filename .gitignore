@@ -1,2 +1,10 @@
 *.log
 menu_recsys/migrations/
+__pycache__
+.vscode
+chromedriver
+.DS_Store
+*django_app2*
+db.sqlite3
+conda_to_pip.py
+key.json
