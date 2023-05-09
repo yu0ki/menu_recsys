@@ -1,128 +1,27 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>PlatePandA</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
-		<script type="text/javascript" src="pet.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
-		<link rel="stylesheet" href="../layouts/head_foot.css" />
-		<style>
-			#flexbox_top {
-				display: flex;
-				height: 40%
-			}
-			#flexbox_bottom {
-				display: flex;
-				height: 60%
-			}
 
-			#weather {
-				height: 80%;
-				width: 55%;
-				background-color: #95ecff;
-			}
-			#tweet {
-				height: 100%;
-				width: 45%;
-				background-color: #069abb;
-			}
-			#panda {
-				height: 100%;
-				width: 70%;
-				background-color: #a4acad;
-			}
-			#tool {
-				max-height: 100%;
-				max-width: 30%
-			}
-			#search {
-				height: 33%;
-			}
-			#img-search {
-				height: 100%;
-				width: auto;
-			}
-			#img-setting {
-				height: 100%;
-				width: auto;
-			}
-			#img-camera {
-				height: 100%;
-				width: auto;
-			}
-			#setting{
-				height: 33%;
-			}
-			#camera {
-				height: 33%;
-			}
-			.animation {
-				animation-timing-function: ease-in-out;
-				animation-iteration-count: infinite;
-				animation-direction: alternate;
-				animation-duration: 6.0s;
-
-				animation-name: anim;
-			}
-			@keyframes anim {
-				0% {
-					
-					transform: translate(0px, 0);
-				}
-				40% {
-					
-					transform: translate(150px, 0);
-				}
-				50% {
-					transform: scaleX(-1);
-					
-				}
-				70% {
-					transform: translate(-150px, 0);
-				}
-				100% {
-					transform: scaleX(-1);
-					
-				}
-			}
-		</style>
-	</head>
-
-	<body>
-		<header>
-			<div class="container">
-				<h1 class="title"><a id="pp_head" href="../pages/user_home.html" style="color:black">PlatePandA</a></h1>
-				<h2 class="subtitle"> <!-- 書くとしたらページタイトル --></h2>
-			
-			</div>
-		</header>
-		
-		<main>
-			<div class="container" id="flexbox_top">
-				<div id="weather">
+			<div class="container" id="user_home_flexbox_top">
+				<div id="user_home_weather">
 					
 					<h2>天気</h2>
 					<script>
 						
-						var areas = {{ weather }};
+						var areas = "{{ weather }}";
 						
 						console.log(areas);
 					</script>
 					<p>コンテンツ1</p>
 				</div>
-				<div id ="tweet">
+				<div id ="user_home_tweet">
 					<h2>＃PlatePandAのタイムライン</h2>
 					<a class="twitter-timeline" data-width="220" data-height="200" href="https://twitter.com/kyotoyunesuko?ref_src=twsrc%5Etfw">Tweets by kyotoyunesuko</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 					<a href="https://twitter.com/intent/tweet?text=%0A%0A%23%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AE%EF%BC%A7%EF%BC%B7%E4%BA%88%E5%AE%9A%E8%A1%A8%20%23PlatePandA%0Ahttps%3A%2F%2Fgithub.com/yu0ki/menu_recsys%0A" class="twitter-hashtag-button" data-show-count="false">Tweet #PlatePandA</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 					<p>コンテンツ2</p>
 				</div>
 			</div>
-			<div class="container" id="flexbox_bottom">
-				<div id="panda" style="margin:0px;overflow:hidden">
+			<div class="container" id="user_home_flexbox_bottom">
+				<div id="user_home_panda" style="margin:0px;overflow:hidden">
 					<canvas id="myCanvas" ></canvas>
 					<!-- <h2>パンダ</h2>
 					<p>
@@ -131,31 +30,20 @@
 						</a>
 					</p> -->
 				</div>
-				<div id="tool">
-					<div id="search">
+				<div id="user_home_tool">
+					<div id="user_home_search">
 						<a href="../pages/search.html">
-							<img src="images/search_mushimegane.png" id="img-search">
+							<img src="images/search_mushimegane.png" id="user_home_img_search">
 						</a>
 					</div>
-					<div id="camera">
-						<img src="images/camera.png" id="img-camera">
+					<div id="user_home_camera">
+						<img src="images/camera.png" id="user_home_img_camera">
 					</div>
-					<div id="setting">
-						<img src="images/setting.png" id="img-setting">
+					<div id="user_home_setting">
+						<img src="images/setting.png" id="user_home_img_setting">
 					</div>
 				</div>
 			</div>
 			
 
-		</main>
-		
-
-		<footer> 
-			<div class="content has-text-centered">
-			2023 ©PlatePandA
-			</div>
-		</footer>
-
-	</body>
-</html>
 {% endblock %}
