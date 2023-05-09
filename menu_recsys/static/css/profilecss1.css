@@ -7,10 +7,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 .profile-box{
     width:80%;
+    height: 100%;
     background: white;
     box-sizing:border-box;
     border-radius: 10px;
@@ -83,4 +83,3 @@ label {
     background-color: #0056b3;
     border-color: #0056b3;
 }
-

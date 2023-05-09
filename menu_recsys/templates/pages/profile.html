@@ -39,6 +39,14 @@
                 <div class="form-group">
                     {{ form.gender | attr:"class:form-control" }}
                 </div>
+                <p>アレルゲン</p>
+                <div class="form-group">
+                    {{ form.allergen | attr:"class:form-control" |attr:"placeholder:アレルゲン" }}
+                </div>
+                <p>活動量</p>
+                <div class="form-group">
+                    {{ form.momentum | attr:"class:form-control" |attr:"placeholder:活動量" }}
+                </div>
                 <p><input type="submit" value="登録" class="btn btn-primary"></p>
         </div>
     </div>

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from menu_recsys.forms import SignUpForm, UserProfileForm
+from django.contrib import messages
 from django import forms
 
 
@@ -24,7 +25,7 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-
+            messages.add_message(request, messages.Sucess, "SUCCESS")
             return redirect("../login/")
     else:
         form = SignUpForm()
@@ -81,4 +82,5 @@ def profile(request):
     else:
         form = UserProfileForm()
     return render(request, "pages/profile.html", {"form": form})
+
     pass
