@@ -1,21 +1,36 @@
-{#{% extends "layouts/base.html" %}#}
-{#{% block content %}#}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>アカウント登録</title>
-</head>
-<body>
-    <h1>アカウント登録</h1>
-    <form method="POST" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">登録</button>
-    </form>
-</body>
-</html>
+{% extends "layouts/base.html" %}
+{% block content %}
+    {% load static %}
+
+{% load widget_tweaks %}
+    <!DOCTYPE html>
+    <html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>アカウント登録</title>
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    </head>
+    <body>
+    <div class = parent>
+        <div class = "signup-box">
+            <h1>アカウント登録</h1>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.user_account | attr:"class:form-control" |attr:"placeholder:アカウント" }}
+                </div>
+                <div class="form-group">
+                    {{ form.password1 | attr:"class:form-control" |attr:"placeholder:パスワード" }}
+                </div>
+                <div class="form-group">
+                    {{ form.password2 | attr:"class:form-control" |attr:"placeholder:パスワード（確認）" }}
+                </div>
+                <p><input type="submit" value="登録" class="btn btn-primary"></p>
+        </div>
+    </div>
+    </body>
+    </html>
 
 
-{#{% endblock %}#}
+{% endblock %}

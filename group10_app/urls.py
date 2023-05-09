@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from menu_recsys.views import home, signup, login_view, user_home, search, recommend
+from menu_recsys.views import home, signup, login_view, user_home, search, recommend, profile
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     path("user_home/", user_home),
     path("search/", search),
     path("recommend/", recommend),
+    path("profile/", profile, name="profile"),
 ]

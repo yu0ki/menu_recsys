@@ -1,0 +1,29 @@
+
+html {
+    height: 100%
+}
+body {
+    height: 100%;
+}
+
+
+header {
+    height: 9%;
+    background-color: #ff9393;
+}
+/* ヘッダーのPlatePanddAにカーソルを合わせると下線が出ます*/
+#pp_head { text-decoration:none;}
+#pp_head:hover { text-decoration:underline;}
+
+
+main {
+    height: 82%
+}
+footer {
+    height: 9%;
+    background-color: #ff9393;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

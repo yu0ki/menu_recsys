@@ -1,16 +1,19 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+from menu_recsys.forms import SignUpForm, UserProfileForm
+from django import forms
+
 
 def my_view(request):
     # Do some work here...
     return HttpResponse("Hello, world!")
 
 
-
 # ログイン前ホーム画面
 def home(request):
+    return render(request, "pages/home.html",)
     pass
 
 
@@ -18,13 +21,13 @@ def home(request):
 # サインアップ
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+
             return redirect("../login/")
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, "pages/signup.html", {"form": form})
     pass
 
@@ -39,7 +42,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('https://www.yahoo.com')
+                return redirect('../user_home/')
     else:
         form = AuthenticationForm()
     return render(request, "pages/login.html", {"form": form})
@@ -53,6 +56,9 @@ def logout(request):
 
 # ユーザホーム
 def user_home(request):
+    # if request.method("POST"):
+    #     return redirect('../profile')
+    # return HttpResponse("Hello, world!")
     return render(request, 'pages/user_home.html')
 
 
@@ -63,4 +69,16 @@ def search(request):
 
 # 検索結果
 def recommend(request):
+    pass
+
+
+def profile(request):
+    if request.method == "POST":
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect("../user_home/")
+    else:
+        form = UserProfileForm()
+    return render(request, "pages/profile.html", {"form": form})
     pass

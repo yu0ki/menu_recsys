@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+}
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signup-box{
+    width:60%;
+    height: 100%;
+    background: white;
+    box-sizing:border-box;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    padding: 20px;
+    min-height: 200px;
+}
+.signup-box h1{
+    margin: 0 0 30px;
+    padding: 0;
+    color: black;
+    text-align: center;
+    font-size: 26px;
+}
+.form-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+label {
+    font-size:1px;
+    line-height: 1.5;
+    padding: 1px;
+    margin-bottom: 0px ;
+    color: black;
+}
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0.4rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn {
+    display: inline-block;
+    width: 100%;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+
+.btn-primary {
+    color: white;
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+h1 {
+    display: block;
+    width: 100%;
+    padding: 0.4rem;
+    font-size: 16rem;
+    line-height: 1.5;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}

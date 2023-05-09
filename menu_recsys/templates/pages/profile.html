@@ -1,0 +1,49 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+    {% load static %}
+{% load widget_tweaks %}
+    <!DOCTYPE html>
+    <html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>プロフィール登録</title>
+        <link rel="stylesheet" href="{% static 'css/profilecss.css' %}">
+    </head>
+    <body>
+    <div class = parent>
+        <div class = "profile-box">
+            <h1>プロフィール登録</h1>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.user_name | attr:"class:form-control" |attr:"placeholder:ニックネーム" }}
+                </div>
+                <div class="form-group">
+                    {{ form.user_email | attr:"class:form-control" |attr:"placeholder:メールアドレス" }}
+                </div>
+                <div class="form-group">
+                    {{ form.age | attr:"class:form-control" |attr:"placeholder:年齢" }}
+                </div>
+                <div class="form-group">
+                    {{ form.height | attr:"class:form-control" |attr:"placeholder:身長(cm)" }}
+                </div>
+                <div class="form-group">
+                    {{ form.weight | attr:"class:form-control" |attr:"placeholder:体重(kg)" }}
+                </div>
+                <p>性別（default:田佬)</p>
+                <div class="form-group">
+                    {{ form.gender | attr:"class:form-control" |attr:"placeholder:性別（default:田佬）" }}
+                </div>
+                <p>目標</p>
+                <div class="form-group">
+                    {{ form.gender | attr:"class:form-control" }}
+                </div>
+                <p><input type="submit" value="登録" class="btn btn-primary"></p>
+        </div>
+    </div>
+    </body>
+    </html>
+
+
+{% endblock %}
