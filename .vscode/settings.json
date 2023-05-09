@@ -1,0 +1,20 @@
+{
+    "cSpell.words": [
+        "recsys"
+    ],
+
+
+  // "[python]": { // ブログの都合でpを大文字としていますが正しくは小文字です。
+  //   "editor.formatOnSave": true,
+  // },
+  "python.linting.enabled": true,
+  "python.linting.lintOnSave": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--config=${workspaceFolder}/.flake8"
+  ],
+  "python.formatting.provider": "black",
+  "editor.formatOnSave": true,
+  "python.formatting.blackPath": "/Users/itouyuuki/miniconda3/envs/django_app/bin/black",
+}

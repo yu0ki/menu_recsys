@@ -20,7 +20,7 @@ def get_menu_info(url: str):
 
         # 商品名英語
         dish_en_name = soup.select("#main > h1")[0].contents[1].contents[0]
-        # print("dish_en_name: ", dish_en_name)
+        # print
 
         # 商品画像
         image_url = soup.select("#main > div.menuImgBox > img")[0]["src"]
@@ -32,7 +32,7 @@ def get_menu_info(url: str):
         )[0].contents[0]
         price = re.sub(r"[^0-9.-]", "", price)
         # print("price: ", price)
-        
+
         # エネルギー（kcal）
         energy = soup.select(
             "#main > ul > li:nth-child(2) > span.price"
@@ -103,7 +103,7 @@ def get_menu_info(url: str):
         )[0].contents[0]
         vitamin_b1 = re.sub(r"[^0-9.-]", "", vitamin_b1)
         # print("vitamin_b1: ", vitamin_b1)
-        
+
 
         # ビタミン B2（mg）
         vitamin_b2 = soup.select(
@@ -111,7 +111,7 @@ def get_menu_info(url: str):
         )[0].contents[0]
         vitamin_b2 = re.sub(r"[^0-9.-]", "", vitamin_b2)
         # print("vitamin_b2: ", vitamin_b2)
-        
+
 
         # ビタミンC（16mg）
         vitamin_c = soup.select(
@@ -119,7 +119,7 @@ def get_menu_info(url: str):
         )[0].contents[0]
         vitamin_c = re.sub(r"[^0-9.-]", "", vitamin_c)
         # print("vitamin_c: ", vitamin_c)
-        
+
 
         # 原産地（一応・・・けど使いにくいデータ形式）
         place_of_origin = soup.select(
@@ -159,13 +159,16 @@ def get_menu_info(url: str):
             "allergies": allergies,
         }
 
-
-
-
-
-
-
-        
-
-
-        
+import menu
+if __name__ == "__main__":
+    result = menu.get_menu_urls(canteen_id=650111)
+    url = "https://west2-univ.jp/sp/detail.php?t=650111&c=814167"
+    url = "https://west2-univ.jp/sp/detail.php?t=650111&c=650118_445407"
+    url = "https://west2-univ.jp/sp/detail.php?t=650113&c=650118_446040"
+    try:
+        result = get_menu_info(url)
+    except Exception as e:
+        print(e, type(e))
+        print(type(e) == IndexError)
+    for k, v in result.items():
+        print(k, v, type(v))
