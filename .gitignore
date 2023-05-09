@@ -1,2 +1,3 @@
 *.log
 menu_recsys/migrations/
+.idea/workspace.xml
