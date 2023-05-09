@@ -1,6 +1,15 @@
 {% extends "layouts/base.html" %}
 {% block content %}
+<div class="has-text-centered">
+    <img src="{{ image }}" alt="Encoded Image">
+</div>
 
-<img src="{{ image }}" alt="Encoded Image">
+<div class="">
+    <h3>選んだメニューはこれですか？</h3>
+    {% for dish in detected_dish_info %}
+        <p>{{ dish }}</p>
+    {% endfor %}
+</div>
+
 
 {% endblock %}
