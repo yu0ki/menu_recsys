@@ -25,14 +25,31 @@
     </form>
 
     <script>
-        navigator.mediaDevices.getUserMedia({video: true})
+        // 外カメラから映像を取得
+        navigator.mediaDevices.getUserMedia(
+            // {video: true}
+            {video: { facingMode: { exact: "environment" }}}
+        )
         .then(function(stream) {
             var video = document.getElementById("video");
             video.srcObject = stream;
             video.play();
         })
         .catch(function(error) {
-            console.log(error);
+            // console.log(error);
+            // 外カメラがない場合 -> 内カメラ（自撮りするやつ）を表示
+            navigator.mediaDevices.getUserMedia(
+                {video: true}
+                // {video: { facingMode: { exact: "environment" }}}
+            )
+            .then(function(stream) {
+                var video = document.getElementById("video");
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
         });
 
         var canvas = document.getElementById("canvas");
