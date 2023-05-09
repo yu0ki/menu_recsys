@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "menu_recsys"
+    "menu_recsys",
+    "widget_tweaks"
 ]
 
 MIDDLEWARE = [
