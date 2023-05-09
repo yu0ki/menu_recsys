@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+    <!-- <video id="video" width="640" height="480"></video>
+    <br> -->
+    <!-- カメラ -->
+    <div class="video-container">
+        <video id="video">
+        </video>
+    
+        <script>
+            document.getElementById("video").width = window.innerWidth;
+            document.getElementById("video").height = window.innerHeight;
+        </script>
+
+        <div class="has-text-centered" style="margin: 20px">
+            <button id="capture" class="is-danger is-light button">撮影する</button>
+        </div>
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="capture_form">
+        {% csrf_token %}
+        <input type="hidden" name="image" id="capture_image">
+    </form>
+
+    <script>
+        navigator.mediaDevices.getUserMedia({video: true})
+        .then(function(stream) {
+            var video = document.getElementById("video");
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
+
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+
+        document.getElementById("capture").addEventListener("click", function() {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0);
+        var dataURL = canvas.toDataURL();
+        document.getElementById("capture_image").value = dataURL;
+        document.getElementById("capture_form").submit();
+        });
+    </script>
+{% endblock %}

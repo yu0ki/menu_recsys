@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from menu_recsys.models import User, Menu
-from django.db.models import Q
-from functools import reduce
+from menu_recsys.models import User
+from menu_recsys.database_update import database_update
+
 
 # ログイン前ホーム画面
 def home(request):
@@ -55,24 +55,31 @@ def user_info_input(request):
 
 # 検索条件入力
 def search(request):
-    # MenuFormSet = MenuForm()
-    if request.method == "GET":
-        return render(request, "pages/search.html")
-        budget = request.POST.get("budget")
-        canteen = request.POST.get("canteen")
-        types = request.POST.get("types")
-        target = request.POST.get("target")
-        # searching suitable menu
-        menu_id = [325, 326, 327]
-        return recommend(request, menu_id)
+    pass
     # x = database_update.canteen_database_update()
     # if x:
     #     return render(request, "pages/recommend.html")
     # else:
     #     return render(request, "pages/search.html")
 
+
 # 検索結果
-def recommend(request, menu_id):
-    menu = Menu.objects.filter(reduce(lambda x, y: x | y, [Q(id=item) for item in menu_id]))
-    #menu = Menu.objects.filter(id=325)
-    return render(request, "pages/recommend.html", {"menu": menu})
+def recommend(request):
+    pass
+
+
+# カメラページ
+# ストリーミング画像・映像を表示するview
+class Camera(View):
+    def get(self, request):
+        return render(request, 'pages/camera.html', {})
+
+
+# 撮った写真を表示
+def lunch_photo(request):
+    # Base64エンコードされた画像データ取得
+    image = request.POST.get('image')
+    print(image[:20])
+    return render(request,
+                  'pages/lunch_photo.html',
+                  {'image': image})
