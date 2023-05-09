@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from menu_recsys.models import User
 from menu_recsys.database_update import database_update
+from menu_recsys.models import Menu
+from .order_recognition.image_processors import object_detect
 
 
 # ログイン前ホーム画面
@@ -70,16 +72,31 @@ def recommend(request):
 
 # カメラページ
 # ストリーミング画像・映像を表示するview
-class Camera(View):
-    def get(self, request):
-        return render(request, 'pages/camera.html', {})
+def camera(request):
+    return render(request, 'pages/camera.html', {})
 
 
 # 撮った写真を表示
 def lunch_photo(request):
     # Base64エンコードされた画像データ取得
-    image = request.POST.get('image')
-    print(image[:20])
+    base64_image = request.POST.get('image')
+
+    # データベースからメニュー情報取得
+    # TODO: searchページと連携して食堂を絞り込む
+    # Menu database から image_urlとdish_nameを取得してdict型に変換
+    menus = list(Menu.objects.all().values("image_url", "dish_name"))
+
+    # 画像処理
+    detected_dish_info = object_detect(base64_image, menus)
+    print(detected_dish_info)
+
     return render(request, 
                   'pages/lunch_photo.html', 
-                  {'image': image})
+                  {'image': base64_image,
+                   "detected_dish_info": detected_dish_info})
+
+
+def update_menu_database(request):
+    # データ更新
+    database_update.canteen_database_update()
+    # return x

@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from menu_recsys.views import home, signup, login, user_home, search, recommend
-from menu_recsys.views import Camera
+from menu_recsys.views import user_info_input
+from menu_recsys.views import camera
 from menu_recsys.views import lunch_photo
+from menu_recsys.views import update_menu_database
 
 
 urlpatterns = [
@@ -36,11 +38,13 @@ urlpatterns = [
     # 検索結果ページ
     path("recommend", recommend),
     # カメラページ
-    path('camera', Camera.as_view(), name="camera"),
+    path('camera', camera, name="camera"),
     # # 映像をストリーミング
     # path('video_feed', video_feed_view(), name="video_feed"),
     # 撮った写真を表示
-    path('lunch_photo', lunch_photo, name="lunch_photo"),,
+    path('lunch_photo', lunch_photo, name="lunch_photo"),
     # ユーザ情報入力ページ
     path("user_home/user_info_input", user_info_input),
+    # メニュースクレイピング起動 -> データベース保存
+    path("update_menu_database", update_menu_database)
 ]
