@@ -91,7 +91,6 @@ def lunch_photo(request):
 
     # 画像処理
     detected_dish_info = object_detect(base64_image, menus)
-    print(detected_dish_info)
 
     return render(request, 
                   'pages/lunch_photo.html', 
