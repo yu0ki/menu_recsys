@@ -25,7 +25,10 @@ def logout(request):
 
 # ユーザホーム
 def user_home(request):
-    return render(request, 'pages/user_home.html')
+    ctx = {
+        "weather": "sunny"
+    }
+    return render(request, 'pages/user_home.html', ctx)
 
 
 # 検索条件入力
