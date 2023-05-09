@@ -1,3 +1,5 @@
+{% extends "layouts/base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -5,6 +7,7 @@
 		<title>PlatePandA</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
+		<script type="text/javascript" src="pet.js"></script>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
 		<link rel="stylesheet" href="../layouts/head_foot.css" />
 		<style>
@@ -101,24 +104,32 @@
 		<main>
 			<div class="container" id="flexbox_top">
 				<div id="weather">
+					
 					<h2>天気</h2>
+					<script>
+						
+						var areas = {{ weather }};
+						
+						console.log(areas);
+					</script>
 					<p>コンテンツ1</p>
 				</div>
 				<div id ="tweet">
 					<h2>＃PlatePandAのタイムライン</h2>
 					<a class="twitter-timeline" data-width="220" data-height="200" href="https://twitter.com/kyotoyunesuko?ref_src=twsrc%5Etfw">Tweets by kyotoyunesuko</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-					<a href="https://twitter.com/intent/tweet?text=%0A%0A%23%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AE%EF%BC%A7%EF%BC%B7%E4%BA%88%E5%AE%9A%E8%A1%A8%20%23shindanmaker%0Ahttps%3A%2F%2Fgithub.com/yu0ki/menu_recsys%0A" class="twitter-hashtag-button" data-show-count="false">Tweet #PlatePandA</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+					<a href="https://twitter.com/intent/tweet?text=%0A%0A%23%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AE%EF%BC%A7%EF%BC%B7%E4%BA%88%E5%AE%9A%E8%A1%A8%20%23PlatePandA%0Ahttps%3A%2F%2Fgithub.com/yu0ki/menu_recsys%0A" class="twitter-hashtag-button" data-show-count="false">Tweet #PlatePandA</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 					<p>コンテンツ2</p>
 				</div>
 			</div>
 			<div class="container" id="flexbox_bottom">
-				<div id="panda">
-					<h2>パンダ</h2>
+				<div id="panda" style="margin:0px;overflow:hidden">
+					<canvas id="myCanvas" ></canvas>
+					<!-- <h2>パンダ</h2>
 					<p>
 						<a href="https://panda.ecs.kyoto-u.ac.jp/portal">
 							<img src="images/animal_bear_panda.png" class="animation">
 						</a>
-					</p>
+					</p> -->
 				</div>
 				<div id="tool">
 					<div id="search">
@@ -147,3 +158,4 @@
 
 	</body>
 </html>
+{% endblock %}
