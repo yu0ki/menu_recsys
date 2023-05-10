@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from menu_recsys.models import User
+from menu_recsys.models import User, Menu, Canteen
 from menu_recsys.database_update import database_update
-
+from functools import reduce
+from django.shortcuts import HttpResponse, redirect
+from django.db.models import Q
+from django.views.generic import View
 
 # ログイン前ホーム画面
 def home(request):
@@ -55,7 +58,19 @@ def user_info_input(request):
 
 # 検索条件入力
 def search(request):
-    pass
+    if request.method == "GET":
+        context = {
+            "canteen_name_choices": Canteen.canteen_name_choices,
+        }
+        return render(request, "pages/search.html", context=context)
+    budget = request.POST.get("budget")
+    canteen = request.POST.get("canteen")
+    types = request.POST.get("types")
+    target = request.POST.get("target")
+    # function: searching suitable menu returns menu ids
+    menu_id = [325, 326, 327, budget]
+    return recommend(request, menu_id=menu_id)
+
     # x = database_update.canteen_database_update()
     # if x:
     #     return render(request, "pages/recommend.html")
@@ -64,8 +79,12 @@ def search(request):
 
 
 # 検索結果
-def recommend(request):
-    pass
+def recommend(request, menu_id=None):
+    if menu_id is None:
+        menu = Menu.objects.all()
+    else:
+        menu = Menu.objects.filter(reduce(lambda x, y: x | y, [Q(id=item) for item in menu_id]))
+    return render(request, "pages/recommend.html", {"menu": menu})
 
 
 # カメラページ
