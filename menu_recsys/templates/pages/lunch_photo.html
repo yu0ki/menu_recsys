@@ -1,22 +1,21 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-<div class="has-text-centered">
-    <img src="{{ image }}" alt="Encoded Image">
-</div>
-
-<div class="section" style="overflow: hidden;">
-    <h3 class="has-text-weight-bold">選んだメニューはこれですか？</h3>
+<div class="section">
+    <div class="has-text-centered">
+        <img src="{{ image }}" alt="Encoded Image">
+    </div>
+    <h3 class="has-text-weight-bold" style="margin-bottom: 5px;">選んだメニューはこれですか？</h3>
     <div>
         {% for dish in detected_dish_info %}
-        <div style="display: flex;">
+        <div style="display: flex; margin-bottom: 2px;">
             <!-- 料理名 -->
             <div class="has-text-centered" style="margin-right: auto;">
                 {{ dish }}
             </div>
 
             <!-- 右端に編集・削除ボタン -->
-            <div class="m-2"><i class="fa-solid fa-pen-to-square"></i></div>
-            <div class="m-2"><i class="fa-solid fa-trash"></i></div>
+            <div style="margin-right: 10px"><i class="fa-solid fa-pen-to-square"></i></div>
+            <div style="margin-right: 5px"><i class="fa-solid fa-trash"></i></div>
         </div>
         {% endfor %}
 
