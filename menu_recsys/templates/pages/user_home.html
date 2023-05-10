@@ -1,51 +1,132 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-
-			<div class="container" id="user_home_flexbox_top">
+{% load static %}
+        <div id="hide">
+			<div id="user_home_flexbox_top">
 				<div id="user_home_weather">
 					
-					<h2>天気</h2>
-					<script>
+					<h2>天気:{{ weather }}</h2>
+					<canvas id="canvas_weather"></canvas>
+					<!-- <script>
+						const	user_home_weather = document.getElementById( "user_home_weather" );
+						var canvas_weather = document.getElementById("canvas_weather");
+						canvas_weather.width = user_home_weather.clientWidth;
+						canvas_weather.height = user_home_weather.clientHeight;
+						var weather = "{{ weather }}";
+						var img_weather = new Image();
+						if (weather == "晴れ"){
+							img_weather.src = "{% static 'images/sunny.png' %}";//1920x1080
+						}
 						
-						var areas = "{{ weather }}";
-						
-						console.log(areas);
-					</script>
-					<p>コンテンツ1</p>
+					</script> -->
+					<!-- <p>コンテンツ1</p> -->
 				</div>
 				<div id ="user_home_tweet">
 					<h2>＃PlatePandAのタイムライン</h2>
 					<a class="twitter-timeline" data-width="220" data-height="200" href="https://twitter.com/kyotoyunesuko?ref_src=twsrc%5Etfw">Tweets by kyotoyunesuko</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 					<a href="https://twitter.com/intent/tweet?text=%0A%0A%23%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AE%EF%BC%A7%EF%BC%B7%E4%BA%88%E5%AE%9A%E8%A1%A8%20%23PlatePandA%0Ahttps%3A%2F%2Fgithub.com/yu0ki/menu_recsys%0A" class="twitter-hashtag-button" data-show-count="false">Tweet #PlatePandA</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-					<p>コンテンツ2</p>
+					<!-- <p>コンテンツ2</p> -->
 				</div>
 			</div>
-			<div class="container" id="user_home_flexbox_bottom">
+			<div id="user_home_flexbox_bottom">
 				<div id="user_home_panda" style="margin:0px;overflow:hidden">
-					<canvas id="myCanvas" ></canvas>
-					<!-- <h2>パンダ</h2>
-
-						
-					<p>
-						<a href="https://panda.ecs.kyoto-u.ac.jp/portal">
-							<img src="images/animal_bear_panda.png" class="animation">
-						</a>
-					</p> -->
+					<canvas id="canvas_panda" ></canvas>
 				</div>
 				<div id="user_home_tool">
+					<canvas id="canvas_tool"></canvas>
+					<script>
+						"use strict";
+						// カウンタ変数の初期化
+						var count = 0;
+
+						//天気部分の描画
+						function weather(){
+							const	user_home_weather = document.getElementById( "user_home_weather" );
+							const canvas_weather = document.getElementById("canvas_weather");
+							// 2Dコンテキストを取得する
+							const ctx1 = canvas_weather.getContext("2d"); 
+							canvas_weather.width = user_home_weather.clientWidth;
+							canvas_weather.height = user_home_weather.clientHeight;
+							var weather = "{{ weather }}";
+							const img_weather = new Image();
+							if (weather="晴れ"){
+								img_weather.src = "{% static 'images/sunny.png' %}";//1920x1080
+								ctx1.drawImage(img_weather, 0, 0, 600, 600, 0, 0, user_home_weather.clientHeight, user_home_weather.clientHeight);
+							}
+						}
+
+						//パンダ部分の描画
+						function panda(){
+							// キャンバス要素を取得する
+							const	ca = document.getElementById( "user_home_panda" );
+							var canvas = document.getElementById("canvas_panda");
+							canvas.width = ca.clientWidth;
+							canvas.height = ca.clientHeight;
+
+							// 2Dコンテキストを取得する
+							var ctx2 = canvas.getContext("2d"); 
+							
+							var img_back = new Image();
+							img_back.src = "{% static 'images/camp.png' %}";//1920x1080
+
+							var img_g = new Image();//330x330
+							img_g.src = "{% static 'images/animal_01_g.png' %}";
+							var img_i = new Image();
+							img_i.src = "{% static 'images/animal_01_i.png' %}";
+
+							ctx2.drawImage(img_back, 900 - (ca.clientWidth/2), 900 - ca.clientHeight, ca.clientWidth, ca.clientHeight, 0, 0, ca.clientWidth, ca.clientHeight);
+							
+							if ((count %80) > 40 ) {
+									ctx2.drawImage(img_g, 0, 0, 330, 330, (ca.clientWidth/2) - (ca.clientHeight/6), ca.clientHeight*1/2, ca.clientHeight/3, ca.clientHeight/3);
+							} else {
+									ctx2.drawImage(img_i, 0, 0, 330, 330, (ca.clientWidth/2) - (ca.clientHeight/6), ca.clientHeight*1/2, ca.clientHeight/3, ca.clientHeight/3);
+							}
+						}
+
+						//ツール部分の描画
+						function tool(){
+							// キャンバス要素を取得する
+							const	ca = document.getElementById( "user_home_tool" );
+							var canvas = document.getElementById("canvas_tool");
+							canvas.width = ca.clientWidth;
+							canvas.height = ca.clientHeight;
+						}
+
+						// requestAnimationFrame()メソッドでループを実行
+						function loop() {
+    						// カウンタをインクリメント
+    						count++;
+
+							//天気部分
+							weather();
+							//パンダ部分
+							panda();
+							//ツール部分
+							tool();
+
+	   						// 次のフレームをリクエストする
+    						requestAnimationFrame(loop);
+						}
+
+						requestAnimationFrame(loop);
+
+
+					</script>
 					<div id="user_home_search">
-						<a href="../pages/search.html">
-							<img src="images/search_mushimegane.png" id="user_home_img_search">
+						<a href="../search.html">
+							<img src="{% static 'images/search_mushimegane.png' %}" id="user_home_img_search">
 						</a>
 					</div>
 					<div id="user_home_camera">
-						<img src="images/camera.png" id="user_home_img_camera">
+						<img src="{% static 'images/camera.png' %}" id="user_home_img_camera">
 					</div>
 					<div id="user_home_setting">
-						<img src="images/setting.png" id="user_home_img_setting">
+						<img src="{% static 'images/setting.png' %}" id="user_home_img_setting">
 					</div>
 				</div>
 			</div>
+		</div>
+	
 			
 
 {% endblock %}
