@@ -4,11 +4,24 @@
     <img src="{{ image }}" alt="Encoded Image">
 </div>
 
-<div style="overflow: hidden;">
+<div class="section" style="overflow: hidden;">
     <h3 class="has-text-weight-bold">選んだメニューはこれですか？</h3>
-    {% for dish in detected_dish_info %}
-        <p>{{ dish }}</p>
-    {% endfor %}
+    <div>
+        {% for dish in detected_dish_info %}
+        <div style="display: flex;">
+            <!-- 料理名 -->
+            <div class="has-text-centered" style="margin-right: auto;">
+                {{ dish }}
+            </div>
+
+            <!-- 右端に編集・削除ボタン -->
+            <div class="m-2"><i class="fa-solid fa-pen-to-square"></i></div>
+            <div class="m-2"><i class="fa-solid fa-trash"></i></div>
+        </div>
+        {% endfor %}
+
+        <!-- メニュー追加ボタン -->
+    </div>
 </div>
 
 
