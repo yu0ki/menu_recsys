@@ -26,7 +26,7 @@ def logout(request):
 # ユーザホーム
 def user_home(request):
     ctx = {
-        "weather": "sunny"
+        "weather": "晴れ"
     }
     return render(request, 'pages/user_home.html', ctx)
 
