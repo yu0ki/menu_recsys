@@ -8,11 +8,28 @@ body {
 
 header {
     height: 9%;
-    background-color: #ff9393;
+    width: auto;
+    background-color: black;
+    display: flex;
+
+}
+header >li {
+    list-style: none;
+    margin: 0;
+}
+header >li:nth-of-type(2) {
+    margin-right:auto;
+}
+header >li:nth-of-type(3) {
+    background-color: white;
+}
+
+#pp_head_icon{
+    height: 100%;
 }
 /* ヘッダーのPlatePanddAにカーソルを合わせると下線が出ます*/
-#pp_head { text-decoration:none;}
-#pp_head:hover { text-decoration:underline;}
+#pp_head_title { text-decoration:none;}
+#pp_head_title:hover { text-decoration:underline;}
 
 
 main {
@@ -21,7 +38,7 @@ main {
 }
 footer {
     height: 9%;
-    background-color: #ff9393;
+    background-color: black;
     display: flex;
     align-items: center;
     justify-content: center;
