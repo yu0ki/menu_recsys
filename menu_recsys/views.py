@@ -88,7 +88,7 @@ def lunch_photo(request):
     # データベースからメニュー情報取得
     # TODO: searchページと連携して食堂を絞り込む
     # Menu database から image_urlとdish_nameを取得してdict型に変換
-    menus = list(Menu.objects.all().values("image_url", "dish_name"))
+    menus = list(Menu.objects.all().values("image_url", "dish_name", "id"))
 
     # 画像処理
     detected_dish_info = object_detect(base64_image, menus)
@@ -96,7 +96,8 @@ def lunch_photo(request):
     return render(request, 
                   'pages/lunch_photo.html', 
                   {'image': base64_image,
-                   "detected_dish_info": detected_dish_info})
+                   "detected_dish_info": detected_dish_info,
+                   "menus": menus})
 
 
 def update_menu_database(request):

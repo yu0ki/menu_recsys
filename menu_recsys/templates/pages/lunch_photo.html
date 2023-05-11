@@ -13,12 +13,20 @@
                 {% for dish in detected_dish_info %}
                     <div class="dish-field" name='{{ dish }}' style="display: flex; margin-bottom: 2px;">
                         <!-- 料理名 -->
-                        <div class="has-text-centered" style="margin-right: auto;">
-                            {{ dish }}
-                        </div>
+                        <select class="has-text-centered" style="margin-right: auto;">
+                            {% for menu in menus %}
+                                <option value="{{ menu.id }}" 
+                                    {% if menu.dish_name == dish.dish_name %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ menu.dish_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
 
                         <!-- 右端に編集・削除ボタン -->
-                        <div style="margin-right: 10px"><i class="fa-solid fa-pen-to-square"></i></div>
+                        <!-- <div style="margin-right: 10px"><i class="fa-solid fa-pen-to-square"></i></div> -->
                         <div class="remove-field-btn" style="margin-right: 5px"><i class="fa-solid fa-trash"></i></div>
                     </div>
                 {% endfor %}

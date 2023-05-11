@@ -53,7 +53,7 @@ def object_detect(base64_image, menu_list):
     vtr = imgsim.Vectorizer()
     menu_vecs = [vtr.vectorize(menu) for menu in menus]
 
-    ordered_menus = set()
+    ordered_menus = []
 
     # 物体検知
     objects = client.object_localization(
@@ -87,7 +87,13 @@ def object_detect(base64_image, menu_list):
 
         # 最も似ているメニューの名前を保存
         # cv2.imwrite(str(min_distance_id) + ".jpg", menus[min_distance_id])
-        ordered_menus.add(menu_list[min_distance_id]["dish_name"])
+        if (
+            not any(x["id"] == menu_list[min_distance_id]["id"] for x in ordered_menus)
+        ):
+            ordered_menus.append(
+                {"dish_name": menu_list[min_distance_id]["dish_name"],
+                 "id": menu_list[min_distance_id]["id"]}
+            )
 
     # 検出されたメニューid一覧をreturn
     return ordered_menus
