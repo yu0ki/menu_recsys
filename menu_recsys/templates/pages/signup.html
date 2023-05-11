@@ -26,11 +26,14 @@
                 <div class="form-group">
                     {{ form.password2 | attr:"class:form-control" |attr:"placeholder:パスワード（確認）" }}
                 </div>
+                {% for message in messages %}
+
+                    <div style="color: red; font-size: 1.0rem;">{{ message }}</div>
+
+                {% endfor %}
                 <p><input type="submit" value="登録" class="btn btn-primary"></p>
         </div>
     </div>
     </body>
     </html>
-
-
 {% endblock %}

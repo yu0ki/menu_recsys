@@ -16,15 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from menu_recsys.views import home, signup, login_view, user_home, search, recommend, profile
+from menu_recsys.views import home, signup, login_view, user_home, search, recommend, profile, dame, logout_view, allergen
+from menu_recsys import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home),
     path("signup/", signup, name='signup'),
     path("login/", login_view, name="login"),
-    path("user_home/", user_home),
+    path('user_home/<str:user_account>/', views.user_home, name='user_home'),
     path("search/", search),
     path("recommend/", recommend),
-    path("profile/", profile, name="profile"),
+    path('profile/<str:user_account>/', views.profile, name="profile"),
+    path("dame/", dame, name="dame"),
+    path("logout/", logout_view, name="logout"),
+    path('allergen/<str:user_account>/', views.allergen, name="allergen"),
 ]

@@ -9,7 +9,7 @@ body {
   align-items: center;
 }
 .signup-box{
-    width:60%;
+    width:80%;
     height: 100%;
     background: white;
     box-sizing:border-box;
@@ -95,4 +95,8 @@ h1 {
     border-radius: 0.25rem;
     margin-bottom: 0.5rem;
     text-align: center;
+}
+.eror{
+    font-size: 0.2rem;
+    color: red;
 }

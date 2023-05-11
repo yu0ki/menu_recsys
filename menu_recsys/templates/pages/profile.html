@@ -31,14 +31,19 @@
                 <div class="form-group">
                     {{ form.weight | attr:"class:form-control" |attr:"placeholder:体重(kg)" }}
                 </div>
-                <p>性別（default:田佬)</p>
+                <p>性別</p>
                 <div class="form-group">
-                    {{ form.gender | attr:"class:form-control" |attr:"placeholder:性別（default:田佬）" }}
+                    {{ form.gender | attr:"class:form-control" |attr:"placeholder:性別" }}
                 </div>
                 <p>目標</p>
                 <div class="form-group">
-                    {{ form.gender | attr:"class:form-control" }}
+                    {{ form.target | attr:"class:form-control" }}
                 </div>
+                <p>運動習慣</p>
+                <div class="form-group">
+                    {{ form.momentum | attr:"class:form-control" }}
+                </div>
+                <a href="{% url 'allergen' user.user_account %}">アレルゲン登録</a>
                 <p><input type="submit" value="登録" class="btn btn-primary"></p>
         </div>
     </div>

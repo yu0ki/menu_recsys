@@ -8,14 +8,15 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ユーザホーム</title>
-{#        <link rel="stylesheet" href="{% static 'css/signup.css' %}">#}
     </head>
     <body>
     <div class = "signup-box">
         <h1>ユーザホーム</h1>
             {% csrf_token %}
+        <p>  {{ user.user_account }}</p>
         <p>プロフィール</p>
-        <a href="../profile">プロフィール登録</a>
+        <a href="../../profile/{{  user.user_account }}">プロフィール登録</a>
+        <a href="{% url 'logout' %}">ログアウト</a>
     </div>
     </body>
     </html>
