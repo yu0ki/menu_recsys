@@ -3,6 +3,7 @@ from menu_recsys.models import User
 from menu_recsys.database_update import database_update
 from menu_recsys.models import Menu
 from .order_recognition.image_processors import object_detect
+from django.http import HttpResponse
 
 
 # ログイン前ホーム画面
@@ -101,4 +102,4 @@ def lunch_photo(request):
 def update_menu_database(request):
     # データ更新
     database_update.canteen_database_update()
-    # return x
+    return HttpResponse("Updating menu database was finished!")
