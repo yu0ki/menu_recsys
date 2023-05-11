@@ -13,7 +13,7 @@
 }
 
 #user_home_weather {
-    height: 80%;
+    height: 100%;
     width: 55%;
     background-color: #95ecff;
 }
@@ -27,28 +27,23 @@
     width: 70%;
     background-color: #a4acad;
 }
-#user_home_tool {
-    max-height: 100%;
-    max-width: 30%;
+#user_home_tool{
+    height: 100%;
+    width: 30%;
 }
-#uesr_home_search {
+#user_home_tool_item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 33%;
 }
-#user_home_img_search {
+#user_home_tool_align{
+    height: 80%;
+    width: auto;
+    max-width: 80%;
+    display: block;
+}
+#user_home_tool_img {
     height: 100%;
     width: auto;
-}
-#user_home_img_setting {
-    height: 100%;
-    width: auto;
-}
-#user_homse_img_camera {
-    height: 100%;
-    width: auto;
-}
-#user_home_setting{
-    height: 33%;
-}
-#user_home_camera {
-    height: 33%;
 }
