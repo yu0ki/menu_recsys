@@ -1,7 +1,7 @@
 const formFieldsDiv = document.getElementById("form-fields");
 const addFieldBtn = document.getElementById("add-field-btn");
-const removeFieldBtn = document.getElementById("remove-field-btn");
 const dishField = document.getElementsByClassName("dish-field");
+const buttons = document.querySelectorAll(".remove-field-btn");
 
 let fieldCount = 0;
 
@@ -18,13 +18,25 @@ addFieldBtn.addEventListener("click", () => {
     }
   });
 
+    // 削除ボタンにOnClickリスナーをつける
+    remove_button = newField.getElementsByClassName("remove-field-btn")[0]
+    remove_button.addEventListener(
+        'click', () => {
+            // ボタンが所属するアイテムの削除
+            const item = remove_button.closest('.dish-field');
+            item.remove();
+        }
+    )
+
+
   fieldCount++;
   formFieldsDiv.appendChild(newField);
 });
 
-removeFieldBtn.addEventListener("click", () => {
-  if (fieldCount > 0) {
-    formFieldsDiv.lastElementChild.remove();
-    fieldCount--;
-  }
-});
+buttons.forEach(remove_button => {
+    remove_button.addEventListener('click', () => {
+      // ボタンが所属するアイテムの削除
+      const item = remove_button.closest('.dish-field');
+      item.remove();
+    });
+  });
