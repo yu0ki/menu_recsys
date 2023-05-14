@@ -2,7 +2,6 @@
 {% block content %}
 
 <div class="section">
-    <!-- TODO: レイアウトをPandAに寄せる -->
     <div class="has-text-centered">
         <img src="{{ image }}" alt="Encoded Image">
     </div>
@@ -10,8 +9,9 @@
     <!-- メニュー選択 -->
     <h4 class="has-text-weight-bold" style="margin-bottom: 5px;">選んだメニューはこれですか？</h4>
     <div>
-        <form method="POST">
+        <form method="POST" action='{% url "submit_lunch" %}'>
             {% csrf_token %}
+            <!-- 検出したメニュー -->
             <div id="form-fields">
                 {% for dish in detected_dish_info %}
                     <div class="dish-field" name='{{ dish }}' style="display: flex; margin-bottom: 2px;">
@@ -39,14 +39,23 @@
                 <i class="fa-solid fa-plus"></i> 追加
             </button>
 
+            <!-- 隠しフィールド：写真送信 -->
+            <input type="hidden" name="image" value='{{ image }}'>
+
             <!-- 確定ボタン -->
             <!-- PandAの「進める」「キャンセル」ボタンのデザイン -->
             <div style="display: flex; margin: 5 auto;">
                 <div>
-                    <button class="button is-black is-small" style="margin-right: 4px; margin-top: 20px;">進める</button>
+                    <button type="submit" class="button is-black is-small" style="margin-right: 4px; margin-top: 20px;">進める</button>
                 </div>
                 <div>
-                    <button class="button is-light is-small" style="margin-right: 4px; margin-top: 20px;">キャンセル</button>
+                    <a 
+                        class="button is-light is-small" 
+                        style="margin-right: 4px; margin-top: 20px;"
+                        href="{% url 'camera' %}"
+                    >
+                        キャンセル
+                </a>
                 </div>
             </div>
         </form>

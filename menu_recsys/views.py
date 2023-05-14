@@ -4,6 +4,8 @@ from menu_recsys.database_update import database_update
 from menu_recsys.models import Menu
 from .order_recognition.image_processors import object_detect
 from django.http import HttpResponse
+import urllib
+from django.shortcuts import get_object_or_404
 
 
 # ログイン前ホーム画面
@@ -98,6 +100,38 @@ def lunch_photo(request):
                   {'image': base64_image,
                    "detected_dish_info": detected_dish_info,
                    "menus": menus})
+
+
+# 撮った写真から食べた献立を特定し、データベースに保存
+def submit_lunch(request):
+    pass
+    # lunch_photo経由で送られてきた画像を取得
+    base64_image = request.POST.get('image')
+
+    # POSTで送られてきたメニューidから
+    # メニュー名を全て取得
+    dish_id = request.POST.get('dish-0')
+    dishes = []
+    while dish_id is not None:
+        dish_name = get_object_or_404(Menu, id=dish_id).dish_name
+        dishes.append(dish_name)
+        dish_id = request.POST.get('dish-' + str(len(dishes)))
+
+    # TODO: データベースに保存
+    
+    # # SNSシェア用リンク
+    # hashtag = "#PlatePandA"
+    # url = f"https://twitter.com/intent/tweet?text={urllib.parse.quote(hashtag)}&url=&hashtags={urllib.parse.quote(hashtag)}&amp;media={urllib.parse.quote(base64_image)}"
+
+    # renderでそれっぽい画面を返す
+    return render(request, 
+                  'pages/submit_lunch.html', 
+                  {'image': base64_image,
+                   "detected_dish_info": dishes,
+                #    "twitter_share_url": url
+                   })
+
+
 
 
 def update_menu_database(request):
