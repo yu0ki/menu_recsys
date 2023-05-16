@@ -74,7 +74,7 @@ def user_home(request, user_account):
     ctx = {
         "weather": "晴れ"
     }
-    return render(request, "pages/user_home.html", {"user": user}, ctx)
+    return render(request, "pages/user_home.html", {"user": user, "weather": "晴れ"},)
 
 
 # 検索条件入力
@@ -135,9 +135,8 @@ def dame(request):
 
 # カメラページ
 # ストリーミング画像・映像を表示するview
-class Camera(View):
-    def get(self, request):
-        return render(request, 'pages/camera.html', {})
+def camera(request):
+    return render(request, 'pages/camera.html', {})
 
 
 # 撮った写真を表示

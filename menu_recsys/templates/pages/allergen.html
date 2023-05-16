@@ -8,22 +8,22 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>プロフィール登録</title>
-        <link rel="stylesheet" href="{% static 'css/allergen.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/allergen2.css' %}">
     </head>
     <body>
-    <div class = parent>
-        <div class = "profile-box">
+    <div>
+        <div class = "checkbox-container">
             <h1>アレルゲン選択</h1>
-            <form method="POST" action="">
+            <form method="POST" action="" class = "parent">
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form.allergen | attr:"class:form-control" }}
                 </div>
                 <p><input type="submit" value="選択終了/登録" class="btn btn-primary"></p>
+            </form>
         </div>
     </div>
     </body>
     </html>
-
 
 {% endblock %}
