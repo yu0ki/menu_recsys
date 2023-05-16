@@ -85,25 +85,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
 
-# Create your models here.
-class User(models.Model):
-    user_account = models.CharField(verbose_name="アカウント", max_length=16, unique=True, blank=False)
-    user_name = models.CharField(verbose_name="名前", max_length=32, unique=False, default=user_account)
-    user_pwd = models.CharField(verbose_name="パスワード", max_length=16, default="pwd", blank=False, null=False)
-    user_email = models.EmailField(verbose_name="メール", null=True, blank=True)
-    age = models.PositiveSmallIntegerField(verbose_name="年齢", null=True, blank=True)
-    height = models.PositiveSmallIntegerField(verbose_name="身長", null=True, blank=True)
-    weight = models.PositiveSmallIntegerField(verbose_name="体重", null=True, blank=True)
-    gender_choices = (
-        (1, "男"),
-        (2, "女"),
-        (3, "その他")
-    )
-    gender = models.PositiveSmallIntegerField(verbose_name="性別", choices=gender_choices, null=True, blank=True)
-    create_time = models.DateTimeField(verbose_name="アカウント作成時間")
-    allergen = models.CharField(verbose_name="アレルゲン", max_length=128, null=True, blank=True)
-
-
 class Canteen(models.Model):
     """Canteen table
     Name  :   ID
