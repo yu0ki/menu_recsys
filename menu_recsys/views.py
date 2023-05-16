@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from menu_recsys.models import User, Menu, Canteen
 from menu_recsys.database_update import database_update
+from menu_recsys.recommendation import menu_recommendation
 from functools import reduce
+import datetime
+import pandas as pd
 from django.shortcuts import HttpResponse, redirect
 from django.db.models import Q
 from django.views.generic import View
+from django.core.paginator import Paginator
+
 
 # ログイン前ホーム画面
 def home(request):
@@ -67,15 +72,25 @@ def search(request):
     canteen = request.POST.get("canteen")
     types = request.POST.get("types")
     target = request.POST.get("target")
-    # function: searching suitable menu returns menu ids
-    menu_id = [325, 326, 327, budget]
+    user_allergen = ["milk"]
+    user_id = "60"
+    # user_gender = User.objects.get(id=user_id).gender
+    user_gender = 1
+    menus = Menu.objects.filter(canteen__canteen_name=canteen) \
+        .exclude(reduce(lambda x, y: x | y, [Q(allergies__icontains=item) for item in user_allergen])) \
+        .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),
+                 history_order__user_id=user_id)
+    menus_ = list()
+    menus_index = list()
+    for menu in menus:
+        menus_.append([menu.id, menu.price, menu.protein, menu.carbohydrates, menu.veg])
+        menus_index.append(menu.id)
+    menus_columns = ["id", "price", "protein", "carbohydrates", "veg"]
+    menus = pd.DataFrame(data=menus_, index=menus_index, columns=menus_columns)
+    menu_id = menu_recommendation.recommending(menus, max_number=5, max_price=budget, gender=user_gender, momentum=target)
     return recommend(request, menu_id=menu_id)
 
     # x = database_update.canteen_database_update()
-    # if x:
-    #     return render(request, "pages/recommend.html")
-    # else:
-    #     return render(request, "pages/search.html")
 
 
 # 検索結果
@@ -83,6 +98,7 @@ def recommend(request, menu_id=None):
     if menu_id is None:
         menu = Menu.objects.all()
     else:
+        menu_id = menu_id[0]
         menu = Menu.objects.filter(reduce(lambda x, y: x | y, [Q(id=item) for item in menu_id]))
     return render(request, "pages/recommend.html", {"menu": menu})
 
