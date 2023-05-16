@@ -40,7 +40,7 @@ def object_detect(base64_image, menu_list):
     # それを使って画像を取得し、リスト形式で保存
     image_url_list = [ml["image_url"] for ml in menu_list]
     menus = []
-    for url in image_url_list[:10]:
+    for url in image_url_list[:27]:
         print(url)
         # 画像をダウンロードして、numpy配列に読み込む
         req = urllib.request.urlopen(url)

@@ -27,7 +27,7 @@
         <div>
             <a class="button is-black is-small" 
                 style="margin-right: 4px; margin-top: 20px;"
-                href="{% url 'user_home' %}"　
+                href="{% url 'user_home' user_account=request.user.user_account %}"　
             >
                 HOMEに戻る
             </a>

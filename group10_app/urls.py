@@ -20,7 +20,7 @@ from menu_recsys.views import home, signup, login_view, user_home, search, recom
 # from menu_recsys import views
 from menu_recsys.views import user_info_input
 from menu_recsys.views import camera
-from menu_recsys.views import lunch_photo
+from menu_recsys.views import lunch_photo, submit_lunch
 from menu_recsys.views import update_menu_database
 
 
@@ -42,6 +42,8 @@ urlpatterns = [
     # path('video_feed', video_feed_view(), name="video_feed"),
     # 撮った写真を表示
     path('lunch_photo', lunch_photo, name="lunch_photo"),
+    # 頼んだメニューを確定
+    path("submit_lunch", submit_lunch, name="submit_lunch"),
     # ユーザ情報入力ページ
     path("user_home/user_info_input", user_info_input),
     # メニュースクレイピング起動 -> データベース保存
