@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 from menu_recsys.forms import SignUpForm, UserProfileForm, UserAllergenForm
 from django.contrib import messages
-from menu_recsys.models import User
+from menu_recsys.models import User, History_order
 from .decorators import user_account_required
 
 
@@ -181,12 +181,22 @@ def submit_lunch(request):
     # メニュー名を全て取得
     dish_id = request.POST.get('dish-0')
     dishes = []
+    dish_ids = []
     while dish_id is not None:
         dish_name = get_object_or_404(Menu, id=dish_id).dish_name
         dishes.append(dish_name)
+        dish_ids.append(dish_id)
         dish_id = request.POST.get('dish-' + str(len(dishes)))
 
-    # TODO: データベースに保存
+    # データベースに保存
+    for dish_id in dish_ids:
+        data = {
+            'user': request.user,
+            'dish': Menu.objects.get(id=dish_id),
+        }
+        History_order.objects.create(**data)
+
+
     
     # # SNSシェア用リンク
     # hashtag = "#PlatePandA"
