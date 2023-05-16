@@ -23,6 +23,16 @@ from menu_recsys.views import lunch_photo
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", home),
+    path("signup/", signup, name='signup'),
+    path("login/", login_view, name="login"),
+    path('user_home/<str:user_account>/', views.user_home, name='user_home'),
+    path("search/", search),
+    path("recommend/", recommend),
+    path('profile/<str:user_account>/', views.profile, name="profile"),
+    path("dame/", dame, name="dame"),
+    path("logout/", logout_view, name="logout"),
+    path('allergen/<str:user_account>/', views.allergen, name="allergen"),
     # ログイン前のページ（ログインページへのリンクなどを貼る）
     path("/", home),
     # サインアップ

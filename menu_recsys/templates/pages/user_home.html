@@ -4,7 +4,7 @@
         <div id="hide">
 			<div id="user_home_flexbox_top">
 				<div id="user_home_weather">
-					
+
 					<!-- <h2>天気:{{ weather }}</h2> -->
 					<canvas id="canvas_weather"></canvas>
 					<!-- <script>
@@ -17,7 +17,7 @@
 						if (weather == "晴れ"){
 							img_weather.src = "{% static 'images/sunny.png' %}";//1920x1080
 						}
-						
+
 					</script> -->
 					<!-- <p>コンテンツ1</p> -->
 				</div>
@@ -54,6 +54,8 @@
 							</a>
 						</div>
 					</div>
+                    <a href="../../profile/{{  user.user_account }}">プロフィール登録</a>
+                    <a href="{% url 'logout' %}">ログアウト</a>
 				</div>
 			</div>
 		</div>
@@ -67,7 +69,7 @@
 				const	user_home_weather = document.getElementById( "user_home_weather" );
 				const canvas_weather = document.getElementById("canvas_weather");
 				// 2Dコンテキストを取得する
-				const ctx1 = canvas_weather.getContext("2d"); 
+				const ctx1 = canvas_weather.getContext("2d");
 				canvas_weather.width = user_home_weather.clientWidth;
 				canvas_weather.height = user_home_weather.clientHeight;
 				var weather = "{{ weather }}";
@@ -87,8 +89,8 @@
 				canvas.height = frame.clientHeight;
 
 				// 2Dコンテキストを取得する
-				var ctx2 = canvas.getContext("2d"); 
-				
+				var ctx2 = canvas.getContext("2d");
+
 				var img_back = new Image();
 				img_back.src = "{% static 'images/camp.png' %}";//1920x1080
 
@@ -98,7 +100,7 @@
 				img_i.src = "{% static 'images/animal_01_i.png' %}";
 
 				ctx2.drawImage(img_back, 900 - (frame.clientWidth/2), 900 - frame.clientHeight, frame.clientWidth, frame.clientHeight, 0, 0, frame.clientWidth, frame.clientHeight);
-				
+
 				if ((count %80) > 40 ) {
 						ctx2.drawImage(img_g, 0, 0, 330, 330, (frame.clientWidth/2) - (frame.clientHeight/6), frame.clientHeight*1/2, frame.clientHeight/3, frame.clientHeight/3);
 				} else {
@@ -117,7 +119,7 @@
 				const dh = frame.clientHeight;
 
 				// 2Dコンテキストを取得する
-				var ctx = canvas.getContext("2d"); 
+				var ctx = canvas.getContext("2d");
 
 				var img_search = new Image();
 				img_search.src = "{% static 'images/search_mushimegane.png' %}";//256x256
@@ -151,7 +153,7 @@
 
 
 		</script>
-	
-			
+
+
 
 {% endblock %}

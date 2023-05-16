@@ -1,4 +1,5 @@
 {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,6 +13,20 @@
     <script src="https://kit.fontawesome.com/3caa0f69bb.js" crossorigin="anonymous"></script>
   </head>
 
+  <body>
+    <header>
+      <li>
+        <img src="{% static 'images/icon_platepanda.png' %}" id="pp_head_icon">
+      </li>
+      <li>
+        <h1 class="title"><a id="pp_head_title" href="../pages/user_home.html" style="color:white">PlatePandA</a></h1>
+        <h2 class="subtitle" style="color:white"> <!-- 書くとしたらページタイトル --></h2>
+      </li>
+      <li>
+        <!-- メニューボタンですが、今は押しても何もなりません -->
+        <img src="{% static 'images/icon_head_menu.png' %}" id="pp_head_icon">
+      </li>
+    </header>
   <body>
     <header>
       <li>
