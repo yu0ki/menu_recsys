@@ -21,16 +21,26 @@ header >li:nth-of-type(2) {
     margin-right:auto;
 }
 header >li:nth-of-type(3) {
-    background-color: white;
+    background-color: black;
 }
 
 #pp_head_icon{
     height: 100%;
+    background-color: white;
 }
 /* ヘッダーのPlatePanddAにカーソルを合わせると下線が出ます*/
 #pp_head_title { text-decoration:none;}
 #pp_head_title:hover { text-decoration:underline;}
 
+.head_menu{
+    display: inline-block;
+    cursor: pointer;
+}
+.hidden_btns{
+    display: none;
+    background: black;
+    height: auto;
+}
 
 main {
     height: 82%;
