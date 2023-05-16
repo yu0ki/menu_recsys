@@ -1,4 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+
+from menu_recsys.forms import SignUpForm, UserProfileForm, UserAllergenForm
+from django.contrib import messages
+from menu_recsys.models import User
+from .decorators import user_account_required
+
+
+def my_view(request):
+    # Do some work here...
+    return HttpResponse("Hello, world!")
+
 from menu_recsys.models import User
 from menu_recsys.database_update import database_update
 from menu_recsys.models import Menu
@@ -10,51 +24,61 @@ from django.shortcuts import get_object_or_404
 
 # ログイン前ホーム画面
 def home(request):
+    return redirect("login")
     pass
 
 
 # ログイン・サインアップ関連
 # サインアップ
 def signup(request):
-    if request.method == "GET":
-        return render(request, "pages/signup.html")
-    user_account = request.POST.get("user_account")
-    user_pwd = request.POST.get("user_pwd")
-    if not User.objects.filter(user_account=user_account).exists():
-        User.objects.create(user_account=user_account, user_pwd=user_pwd)
-        return render(request, "pages/user_home.html", {"msg": "Account created successfully"})
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect("../login/")
+
+        else:
+            print(form.errors)
+            print(form.errors.get_json_data())
+            values = form.errors.get_json_data().values()
+            for value in values:
+                for v in value:
+                    messages.error(request, v["message"])
     else:
-        return render(request, "pages/signup.html", {"error_msg": "username existed!"})
+        form = SignUpForm()
+    return render(request, "pages/signup.html", {"form": form})
+  
 
 
 # ログイン
-def login(request):
-    if request.method == "GET":
-        return render(request, "pages/login.html")
+def login_view(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user_account = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, user_account=user_account, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('user_home', user.user_account)
 
-    user_account = request.POST.get("user_account")
-    user_pwd = request.POST.get("user_pwd")
-    if User.objects.filter(user_account=user_account).exists():
-        user_existed = User.objects.get(user_account=user_account)
-        if user_existed.user_pwd == user_pwd:
-            return render(request, "pages/user_home.html", {"msg": "Login successfully"})
-        else:
-            return render(request, "pages/login.html", {"error_msg": "Incorrect password"})
     else:
-        return render(request, "pages/login.html", {"error_msg": "Incorrect account"})
-
+        form = AuthenticationForm()
+    return render(request, "pages/login.html", {"form": form})
+  
 
 # ログアウト
-def logout(request):
-    pass
+def logout_view(request):
+    logout(request)
+    return redirect("../login")
 
 
+# 　ユーザ身分確認
 # ユーザホーム
-def user_home(request):
-    ctx = {
-        "weather": "晴れ"
-    }
-    return render(request, 'pages/user_home.html', ctx)
+@user_account_required
+def user_home(request, user_account):
+    user = get_object_or_404(User, user_account=user_account)
+    return render(request, "pages/user_home.html", {"user": user, "weather": "晴れ"})
 
 
 def user_info_input(request):
@@ -75,6 +99,51 @@ def search(request):
 def recommend(request):
     pass
 
+
+@user_account_required
+def profile(request, user_account):
+    user = get_object_or_404(User, user_account=user_account)
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, instance=user)
+        if form.is_valid():
+            user = form.save()
+            return redirect("user_home", user.user_account)
+        else:
+            print(form.errors)
+
+    else:
+        form = UserProfileForm(instance=user)
+
+    context = {
+        "form": form, "user": user
+    }
+    return render(request, "pages/profile.html", context)
+
+
+@user_account_required
+def allergen(request, user_account):
+    user = get_object_or_404(User, user_account=user_account)
+    if request.method == "POST":
+        form = UserAllergenForm(request.POST, instance=user)
+        if form.is_valid():
+            allergen_value = form.cleaned_data.get('allergen', 'default_value')
+            form.instance.allergen = allergen_value
+            user = form.save()
+            return redirect("user_home", user.user_account)
+        else:
+            print(form.errors)
+
+    else:
+        form = UserAllergenForm(instance=user)
+
+    context = {
+        "form": form, "user": user
+    }
+    return render(request, "pages/allergen.html", context)
+
+
+def dame(request):
+    return render(request, "pages/dame.html")
 
 # カメラページ
 # ストリーミング画像・映像を表示するview
@@ -130,8 +199,6 @@ def submit_lunch(request):
                    "detected_dish_info": dishes,
                 #    "twitter_share_url": url
                    })
-
-
 
 
 def update_menu_database(request):

@@ -16,8 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from menu_recsys.views import home, signup, login, user_home, search, recommend
-from menu_recsys.views import user_info_input
+from menu_recsys.views import home, signup, login_view, user_home, search, recommend, profile, dame, logout_view, allergen
+from menu_recsys import viewsfrom menu_recsys.views import user_info_input
 from menu_recsys.views import camera
 from menu_recsys.views import lunch_photo
 from menu_recsys.views import update_menu_database
@@ -25,18 +25,16 @@ from menu_recsys.views import update_menu_database
 
 urlpatterns = [
     path("/admin", admin.site.urls),
-    # ログイン前のページ（ログインページへのリンクなどを貼る）
-    path("/", home),
-    # サインアップ
-    path('signup', signup),
-    # ログイン
-    path('login', login),
-    # ユーザマイページ
-    path("user_home", user_home),
-    # 検索条件設定ページ
-    path("search", search),
-    # 検索結果ページ
-    path("recommend", recommend),
+    path("", home),
+    path("signup/", signup, name='signup'),
+    path("login/", login_view, name="login"),
+    path('user_home<str:user_account>/', views.user_home, name='user_home'),
+    path("search/", search),
+    path("recommend/", recommend),
+    path('profile/<str:user_account>/', views.profile, name="profile"),
+    path("dame/", dame, name="dame"),
+    path("logout/", logout_view, name="logout"),
+    path('allergen/<str:user_account>/', views.allergen, name="allergen"),,
     # カメラページ
     path('camera', camera, name="camera"),
     # # 映像をストリーミング

@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+
+}
+img{
+    width :354px;
+    height :256px;
+    display: block;
+    margin-top: -10px;
+}
+.parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box{
+    width:354px;
+    margin-top: 200px;
+    box-sizing:border-box;
+    border-radius: 10px;
+    position: absolute;
+    overflow: hidden;
+    padding: 2px;
+    min-height: 200px;
+
+}
+p {
+    margin-top: 60px;
+    font-size: 1rem;
+    color: red;
+    text-align: center;
+}
+a {
+    display: block;
+    width: 100%;
+    padding: 0.4rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 0.25rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
