@@ -1,25 +1,159 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-    {% load static %}
-{% load widget_tweaks %}
-    <!DOCTYPE html>
-    <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ユーザホーム</title>
-    </head>
-    <body>
-    <div class = "signup-box">
-        <h1>ユーザホーム</h1>
-            {% csrf_token %}
-        <p>  {{ user.user_account }}</p>
-        <p>プロフィール</p>
-        <a href="../../profile/{{  user.user_account }}">プロフィール登録</a>
-        <a href="{% url 'logout' %}">ログアウト</a>
-    </div>
-    </body>
-    </html>
+{% load static %}
+        <div id="hide">
+			<div id="user_home_flexbox_top">
+				<div id="user_home_weather">
+
+					<!-- <h2>天気:{{ weather }}</h2> -->
+					<canvas id="canvas_weather"></canvas>
+					<!-- <script>
+						const	user_home_weather = document.getElementById( "user_home_weather" );
+						var canvas_weather = document.getElementById("canvas_weather");
+						canvas_weather.width = user_home_weather.clientWidth;
+						canvas_weather.height = user_home_weather.clientHeight;
+						var weather = "{{ weather }}";
+						var img_weather = new Image();
+						if (weather == "晴れ"){
+							img_weather.src = "{% static 'images/sunny.png' %}";//1920x1080
+						}
+
+					</script> -->
+					<!-- <p>コンテンツ1</p> -->
+				</div>
+				<div id ="user_home_tweet">
+					<!-- <h2>＃PlatePandAのタイムライン</h2> -->
+					<a class="twitter-timeline" data-width="220" data-height="200" href="https://twitter.com/kyotoyunesuko?ref_src=twsrc%5Etfw">Tweets by kyotoyunesuko</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+					<a href="https://twitter.com/intent/tweet?text=%0A%0A%23%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AE%EF%BC%A7%EF%BC%B7%E4%BA%88%E5%AE%9A%E8%A1%A8%20%23PlatePandA%0Ahttps%3A%2F%2Fgithub.com/yu0ki/menu_recsys%0A" class="twitter-hashtag-button" data-show-count="false">Tweet #PlatePandA</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+					<!-- <p>コンテンツ2</p> -->
+				</div>
+			</div>
+			<div id="user_home_flexbox_bottom">
+				<div id="user_home_panda" style="margin:0px;overflow:hidden">
+					<canvas id="canvas_panda" ></canvas>
+				</div>
+				<div id="user_home_tool">
+					<div id="user_home_tool_item">
+						<div id="user_home_tool_align">
+							<a href="../search.html">
+								<img src="{% static 'images/search_mushimegane.png' %}" id="user_home_tool_img" alt="検索" >
+							</a>
+						</div>
+					</div>
+					<div id="user_home_tool_item">
+						<div id="user_home_tool_align">
+							<a href="../camera.html">
+								<img src="{% static 'images/camera.png' %}" id="user_home_tool_img" alt="カメラ">
+							</a>
+						</div>
+					</div>
+					<div id="user_home_tool_item">
+						<div id="user_home_tool_align">
+							<a href="../setting.html" >
+								<img src="{% static 'images/setting.png' %}" id="user_home_tool_img" alt="設定">
+							</a>
+						</div>
+					</div>
+                    <a href="../../profile/{{  user.user_account }}">プロフィール登録</a>
+                    <a href="{% url 'logout' %}">ログアウト</a>
+				</div>
+			</div>
+		</div>
+		<script>
+			"use strict";
+			// カウンタ変数の初期化
+			var count = 0;
+
+			//天気部分の描画
+			function weather(){
+				const	user_home_weather = document.getElementById( "user_home_weather" );
+				const canvas_weather = document.getElementById("canvas_weather");
+				// 2Dコンテキストを取得する
+				const ctx1 = canvas_weather.getContext("2d");
+				canvas_weather.width = user_home_weather.clientWidth;
+				canvas_weather.height = user_home_weather.clientHeight;
+				var weather = "{{ weather }}";
+				const img_weather = new Image();
+				if (weather="晴れ"){
+					img_weather.src = "{% static 'images/sunny.png' %}";//1920x1080
+					ctx1.drawImage(img_weather, 0, 0, 600, 600, 0, 0, user_home_weather.clientHeight, user_home_weather.clientHeight);
+				}
+			}
+
+			//パンダ部分の描画
+			function panda(){
+				// キャンバス要素を取得する
+				const	frame = document.getElementById( "user_home_panda" );
+				var canvas = document.getElementById("canvas_panda");
+				canvas.width = frame.clientWidth;
+				canvas.height = frame.clientHeight;
+
+				// 2Dコンテキストを取得する
+				var ctx2 = canvas.getContext("2d");
+
+				var img_back = new Image();
+				img_back.src = "{% static 'images/camp.png' %}";//1920x1080
+
+				var img_g = new Image();//330x330
+				img_g.src = "{% static 'images/animal_01_g.png' %}";
+				var img_i = new Image();
+				img_i.src = "{% static 'images/animal_01_i.png' %}";
+
+				ctx2.drawImage(img_back, 900 - (frame.clientWidth/2), 900 - frame.clientHeight, frame.clientWidth, frame.clientHeight, 0, 0, frame.clientWidth, frame.clientHeight);
+
+				if ((count %80) > 40 ) {
+						ctx2.drawImage(img_g, 0, 0, 330, 330, (frame.clientWidth/2) - (frame.clientHeight/6), frame.clientHeight*1/2, frame.clientHeight/3, frame.clientHeight/3);
+				} else {
+						ctx2.drawImage(img_i, 0, 0, 330, 330, (frame.clientWidth/2) - (frame.clientHeight/6), frame.clientHeight*1/2, frame.clientHeight/3, frame.clientHeight/3);
+				}
+			}
+
+			//ツール部分の描画
+			function tool(){
+				// キャンバス要素を取得する
+				const	frame = document.getElementById( "user_home_tool" );
+				const canvas = document.getElementById("canvas_tool");
+				canvas.width = frame.clientWidth;
+				canvas.height = frame.clientHeight;
+				const dw = frame.clientWidth;
+				const dh = frame.clientHeight;
+
+				// 2Dコンテキストを取得する
+				var ctx = canvas.getContext("2d");
+
+				var img_search = new Image();
+				img_search.src = "{% static 'images/search_mushimegane.png' %}";//256x256
+				var img_camera = new Image();
+				img_camera.src = "{% static 'images/camera.png' %}";//256x256
+				var img_setting = new Image();
+				img_setting.src = "{% static 'images/setting.png' %}";//256x256
+
+				// ctx.drawImage(img_search, 0, 0, 256, 256, dw/2-dh/6, 0, dh/3, dh/3);
+				// ctx.drawImage(img_camera, 0, 0, 256, 256, dw/2-dh/6, dh/3, dh/3, dh/3);
+				// ctx.drawImage(img_setting, 0, 0, 256, 256, dw/2-dh/6, dh*2/3, dh/3, dh/3);
+			}
+
+			// requestAnimationFrame()メソッドでループを実行
+			function loop() {
+				// カウンタをインクリメント
+				count++;
+
+				//天気部分
+				weather();
+				//パンダ部分
+				panda();
+				//ツール部分
+				//tool();
+
+				   // 次のフレームをリクエストする
+				requestAnimationFrame(loop);
+			}
+
+			requestAnimationFrame(loop);
+
+
+		</script>
+
 
 
 {% endblock %}

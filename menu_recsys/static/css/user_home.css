@@ -1,0 +1,50 @@
+#hide{
+    height:100%;
+    overflow: hidden;
+}
+
+#user_home_flexbox_top {
+    display: flex;
+    height: 40%;
+}
+#user_home_flexbox_bottom {
+    display: flex;
+    height: 60%;
+}
+
+#user_home_weather {
+    height: 100%;
+    width: 55%;
+    background-color: #95ecff;
+}
+#user_home_tweet {
+    height: 100%;
+    width: 45%;
+    background-color: #069abb;
+}
+#user_home_panda {
+    height: 100%;
+    width: 70%;
+    background-color: #a4acad;
+}
+#user_home_tool{
+    height: 100%;
+    width: 30%;
+}
+#user_home_tool_item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 33%;
+}
+#user_home_tool_align{
+    height: 80%;
+    width: auto;
+    max-width: 80%;
+    display: block;
+}
+#user_home_tool_img {
+    height: 100%;
+    width: auto;
+}
+

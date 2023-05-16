@@ -4,35 +4,41 @@
   <head>
     <meta charset="utf-8">
     <title>PlatePandA</title>
+    <link rel="icon" type="image/png" href="{% static 'images/icon_platepanda.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
-    <link rel="stylesheet" href="{% static 'css/head_foot.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/head_foot.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/user_home.css' %}" type="text/css">
+    <script src="https://kit.fontawesome.com/3caa0f69bb.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
     <header>
-        <div class="container">
-            <h1 class="title"><a id="pp_head" href="../pages/user_home.html" style="color:black">PlatePandA</a></h1>
-            <h2 class="subtitle"> <!-- 書くとしたらページタイトル --></h2>
-        </div>
+      <li>
+        <img src="{% static 'images/icon_platepanda.png' %}" id="pp_head_icon">
+      </li>
+      <li>
+        <h1 class="title"><a id="pp_head_title" href="../pages/user_home.html" style="color:white">PlatePandA</a></h1>
+        <h2 class="subtitle" style="color:white"> <!-- 書くとしたらページタイトル --></h2>
+      </li>
+      <li>
+        <!-- メニューボタンですが、今は押しても何もなりません -->
+        <img src="{% static 'images/icon_head_menu.png' %}" id="pp_head_icon">
+      </li>
     </header>
 
-
     <main class="container"> <!-- ここの内部をいじると良いと思います -->
-        <div class="column">
-            {% block content %}
-            {% endblock %}
-        </div>
+        {% block content %}
+        {% endblock %}
     </main>
 
-{#    <footer>#}
-{#        <div class="content has-text-centered">#}
-{#        2023 ©PlatePandA#}
-{#        </div>#}
-{#     </footer>#}
-
+    <footer>
+        <div class="content has-text-centered" style="color:white">
+        2023 ©PlatePandA
+        </div>
+     </footer>
   </body>
 </html>
+
 
 

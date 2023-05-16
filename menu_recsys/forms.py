@@ -18,7 +18,7 @@ class SignUpForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['user_name', 'user_email', 'age', 'height', 'weight', 'gender', 'target', 'allergen', 'momentum']
+        fields = ['user_name', 'user_email', 'age', 'height', 'weight', 'gender', 'target', 'momentum']
         labels = {
             'user_email': 'メールアドレス',
             'user_name': 'ニックネーム(必須)',

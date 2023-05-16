@@ -92,6 +92,8 @@ def profile(request, user_account):
         if form.is_valid():
             user = form.save()
             return redirect("user_home", user.user_account)
+        else:
+            print(form.errors)
 
     else:
         form = UserProfileForm(instance=user)
