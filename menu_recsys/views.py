@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-
+import tweepy
 
 # ログイン前ホーム画面
 def home(request):
@@ -26,7 +26,11 @@ def logout(request):
 # ユーザホーム
 def user_home(request):
     ctx = {
-        "weather": "晴れ"
+        "weather": "晴れ",
+        "max_temp": "28℃",
+        "min_temp": "14℃",
+        "panda_type": "nutral",
+        "panda_status": "fine",
     }
     return render(request, 'pages/user_home.html', ctx)
 
