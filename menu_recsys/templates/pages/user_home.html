@@ -88,7 +88,7 @@
 
 				//天気
 				"{% static 'images/sky.png' %}", //1024x683
-				//100x100
+				//150x80
 				"{% static 'images/clips/10.png' %}",
 				"{% static 'images/clips/20.png' %}",
 				"{% static 'images/clips/30.png' %}",
@@ -200,7 +200,7 @@
 				}else{
 					adj_id = 4;
 				}
-				ctx.drawImage(img[idx_weather+adj_id], 0, 0, 100, 100, 20, 0, dh/2, dh/2);
+				ctx.drawImage(img[idx_weather+adj_id], 0, 0, 150, 80, 20, 0, (dh*15/8)*2/5, dh*2/5);
 
 				//気温の表示
 				ctx.fillStyle = 'rgba(255, 0, 0)';
