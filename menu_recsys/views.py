@@ -26,11 +26,11 @@ def logout(request):
 # ユーザホーム
 def user_home(request):
     ctx = {
-        "weather": "晴れ",
+        "weather": "曇り時々",
         "max_temp": "28℃",
         "min_temp": "14℃",
-        "panda_type": "nutral",
-        "panda_status": "fine",
+        "panda_type": "nutral", #nutral, slim, muscleの3つ?
+        "panda_status": "fine", #fine, notgood, fatの3つ?
     }
     return render(request, 'pages/user_home.html', ctx)
 
