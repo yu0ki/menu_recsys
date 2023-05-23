@@ -50,5 +50,5 @@ urlpatterns = [
     # メニュースクレイピング起動 -> データベース保存
     path("update_menu_database", update_menu_database),
     # 食事履歴
-    path("history_order/", history_order)
+    path("history_order/", history_order, name="history_order"),
 ]
