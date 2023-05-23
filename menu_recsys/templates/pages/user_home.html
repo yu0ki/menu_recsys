@@ -109,29 +109,21 @@
 				var type_num = 0; //nomal
 				
 
-				if (p_type == 6){ //"muscle"
+				if (p_type == 3){ //"muscle"
 					type_num = 3
-				}else if(p_type == 4){ //"slim"
+				}else if(p_type == 1){ //"slim"
 					type_num = 6
 				}
 
 				var p_status = "{{ panda_status }}";
-				if (p_status == "fine"){
-					if ((count %150) < 50 ) {
-						p_id = 0 + type_num;
-					} else if ((count %150) < 100){
-						p_id = 1 + type_num;
-					} else{
-						p_id = 2 + type_num;
-					}
-				}else if(p_status == "notgood"){
+				if(p_status < 500){ //notgood
 					adjust_x = 50;
 					if ((count %100) < 50 ) {
 						p_id = 9;
 					} else {
 						p_id = 10;
 					}
-				}else if(p_status == "fat"){
+				}else if(p_status > 1000){ //fat
 					if ((count %150) < 50 ) {
 						p_id = 11;
 					} else if ((count %150) < 75){
@@ -140,6 +132,14 @@
 						p_id = 13;
 					} else{
 						p_id = 12;
+					}
+				}else{ //fine
+					if ((count %150) < 50 ) {
+						p_id = 0 + type_num;
+					} else if ((count %150) < 100){
+						p_id = 1 + type_num;
+					} else{
+						p_id = 2 + type_num;
 					}
 				}
 				panda_img = img[p_id];

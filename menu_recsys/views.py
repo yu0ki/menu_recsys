@@ -122,7 +122,7 @@ def user_home(request, user_account):
         "max_temp": weather["max_temperature"][0],
         "min_temp": weather["min_temperature"][0],
         "panda_type": user.target, #4:slim, 5:nutral, 6:muscleの3つ
-        "panda_status": "fine", #fine, notgood, fatの3つ?
+        "panda_status": user.petstatus, #fine, notgood, fatの3つ
         "user": user
     }
     
