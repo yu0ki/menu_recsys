@@ -16,29 +16,36 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from menu_recsys.views import home, signup, login, user_home, search, recommend
-from menu_recsys.views import Camera
-from menu_recsys.views import lunch_photo
+from menu_recsys.views import home, signup, login_view, user_home, search, recommend, profile, dame, logout_view, allergen
+# from menu_recsys import views
+from menu_recsys.views import user_info_input
+from menu_recsys.views import camera
+from menu_recsys.views import lunch_photo, submit_lunch
+from menu_recsys.views import update_menu_database
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    # ログイン前のページ（ログインページへのリンクなどを貼る）
-    path("/", home),
-    # サインアップ
-    path('signup', signup),
-    # ログイン
-    path('login', login),
-    # ユーザマイページ
-    path("user_home/", user_home),
-    # 検索条件設定ページ
-    path("search", search),
-    # 検索結果ページ
-    path("recommend", recommend),
+    path("/admin", admin.site.urls),
+    path("", home),
+    path("signup/", signup, name='signup'),
+    path("login/", login_view, name="login"),
+    path('user_home/<str:user_account>/', user_home, name='user_home'),
+    path("search/", search, name="search"),
+    path("recommend/", recommend),
+    path('profile/<str:user_account>/', profile, name="profile"),
+    path("dame/", dame, name="dame"),
+    path("logout/", logout_view, name="logout"),
+    path('allergen/<str:user_account>/', allergen, name="allergen"),
     # カメラページ
-    path('camera', Camera.as_view(), name="camera"),
+    path('camera', camera, name="camera"),
     # # 映像をストリーミング
     # path('video_feed', video_feed_view(), name="video_feed"),
     # 撮った写真を表示
     path('lunch_photo', lunch_photo, name="lunch_photo"),
+    # 頼んだメニューを確定
+    path("submit_lunch", submit_lunch, name="submit_lunch"),
+    # ユーザ情報入力ページ
+    path("user_home/user_info_input", user_info_input),
+    # メニュースクレイピング起動 -> データベース保存
+    path("update_menu_database", update_menu_database)
 ]

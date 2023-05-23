@@ -4,36 +4,52 @@ from google.cloud import vision
 from google.oauth2 import service_account
 import cv2
 import imgsim
+import numpy as np
+import urllib
+import os
+import base64
+
 
 # 画像データを受け取る
 # image: カメラから入力される想定 -> cv2.read()で読み込んだ画像
 # https://qiita.com/takeshikondo/items/9e1664b15019160a0a5b
 # 上記のページの「test6():」の実装中に、cv2.read()の結果をVision api に渡している部分が出てくる。
-def object_detect(cv2_image):
+def object_detect(base64_image, menu_list):
     # 認証情報
-    credentials = service_account.Credentials.from_service_account_file('key.json')
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    credentials = (
+        service_account.Credentials.from_service_account_file(
+            os.path.join(BASE_DIR, 'key.json')
+        )
+    )
     client = vision.ImageAnnotatorClient(credentials=credentials)
 
     # 画像を読み込む
+    # まずはbase64からcv2に変換
+    img_data = base64.b64decode(base64_image[22:])
+    img_np = np.fromstring(img_data, np.uint8)
+    cv2_image = cv2.imdecode(img_np, cv2.IMREAD_ANYCOLOR)
+
     img_rgb = cv2.cvtColor(cv2_image, cv2.COLOR_BGR2RGB)
     _, enc_img = cv2.imencode(".jpg", img_rgb)
     content = enc_img.tostring()
     image = vision.Image(content=content)
 
-    # 食堂メニュー全て取得
-    # TODO: データベースから画像をとってくる
-    # 今回はダミーデータで行くぞ
-    dummy_menus = [
-        "スクリーンショット 2023-05-04 9.14.52.png",
-        "スクリーンショット 2023-05-04 9.15.07.png",
-        "スクリーンショット 2023-05-04 9.15.42.png",
-        "スクリーンショット 2023-05-04 9.29.04.png",
-        # "スクリーンショット 2023-05-04 9.34.19.png",
-        "スクリーンショット 2023-05-04 9.46.56.png",
-        "スクリーンショット 2023-05-04 9.52.24.png",
-        "スクリーンショット 2023-05-04 9.53.15.png"
-    ]
-    menus = [cv2.imread(f) for f in dummy_menus]
+    # 食堂メニュー情報整形
+    # データベースからimage_urlを取得済み
+    # それを使って画像を取得し、リスト形式で保存
+    image_url_list = [ml["image_url"] for ml in menu_list]
+    menus = []
+    for url in image_url_list[:27]:
+        print(url)
+        # 画像をダウンロードして、numpy配列に読み込む
+        req = urllib.request.urlopen(url)
+        arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
+        # numpy配列から画像を読み込み
+        img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
+        menus.append(img)
+
+    # 画像をベクトルに変換
     vtr = imgsim.Vectorizer()
     menu_vecs = [vtr.vectorize(menu) for menu in menus]
 
@@ -69,13 +85,20 @@ def object_detect(cv2_image):
                 min_distance = dist
                 min_distance_id = i
 
-        # 最も似ているメニューのDB中のidなどを保存
-        cv2.imwrite(str(min_distance_id) + ".jpg", menus[min_distance_id])
-        ordered_menus.append(min_distance_id)
+        # 最も似ているメニューの名前を保存
+        # cv2.imwrite(str(min_distance_id) + ".jpg", menus[min_distance_id])
+        if (
+            not any(x["id"] == menu_list[min_distance_id]["id"] for x in ordered_menus)
+        ):
+            ordered_menus.append(
+                {"dish_name": menu_list[min_distance_id]["dish_name"],
+                 "id": menu_list[min_distance_id]["id"]}
+            )
 
     # 検出されたメニューid一覧をreturn
     return ordered_menus
 
-image_path = './クリスマスランチ①.jpeg'
-content = cv2.imread(image_path)
-print(object_detect(content))
+
+# image_path = './クリスマスランチ①.jpeg'
+# content = cv2.imread(image_path)
+# print(object_detect(content, [{"image_url": "https://west2-univ.jp/menu_img/png_sp/650118_446014.png", "dish_name": "expamle dish"}]))
