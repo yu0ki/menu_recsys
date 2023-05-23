@@ -213,5 +213,6 @@ def submit_lunch(request):
 
 def update_menu_database(request):
     # データ更新
+    # TODO: add image 
     database_update.canteen_database_update()
     return HttpResponse("Updating menu database was finished!")

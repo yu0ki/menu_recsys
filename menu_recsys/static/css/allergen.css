@@ -3,12 +3,26 @@ body {
     line-height: 1.6;
     background-color: #f4f4f4;
 }
-.parent {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
+.checkbox-container input[type="checkbox"] {
+    /* チェックボックスを横並びにするためのスタイル */
+    display: inline-block;
+    margin-right: 8px; /* チェックボックス間の余白（必要に応じて調整） */
+    margin-left: 50px;
 }
+
+.parent {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+  
+}
+
+#id_allergen {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .profile-box{
     width:80%;
     background: white;
@@ -27,6 +41,7 @@ body {
     text-align: center;
     font-size: 26px;
 }
+
 .form-group {
     display: flex;
     justify-content: center;
@@ -37,6 +52,7 @@ body {
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
 }
+ 
 .btn {
     display: inline-block;
     width: 100%;
@@ -53,7 +69,6 @@ body {
     margin-bottom: 1rem;
 }
 
-
 .btn-primary {
     color: white;
     background-color: #0056b3;
@@ -64,4 +79,3 @@ body {
     background-color: #0056b3;
     border-color: #0056b3;
 }
-
