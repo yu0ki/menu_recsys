@@ -22,21 +22,21 @@
 				<div id="user_home_tool">
 					<div id="user_home_tool_item">
 						<div id="user_home_tool_align">
-							<a href="../search.html">
+							<a href="{% url 'search' %}">
 								<img src="{% static 'images/search_mushimegane.png' %}" id="user_home_tool_img" alt="検索" >
 							</a>
 						</div>
 					</div>
 					<div id="user_home_tool_item">
 						<div id="user_home_tool_align">
-							<a href="../camera.html">
+							<a href="{% url 'camera' %}">
 								<img src="{% static 'images/camera.png' %}" id="user_home_tool_img" alt="カメラ">
 							</a>
 						</div>
 					</div>
 					<div id="user_home_tool_item">
 						<div id="user_home_tool_align">
-							<a href="../setting.html" >
+							<a href="{% url 'profile' user_account=request.user.user_account %}" >
 								<img src="{% static 'images/setting.png' %}" id="user_home_tool_img" alt="設定">
 							</a>
 						</div>
