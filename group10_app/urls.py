@@ -22,7 +22,7 @@ from menu_recsys.views import lunch_photo
 
 
 urlpatterns = [
-    path("/admin", admin.site.urls),
+    path("admin/", admin.site.urls),
     # ログイン前のページ（ログインページへのリンクなどを貼る）
     path("/", home),
     # サインアップ
@@ -32,7 +32,7 @@ urlpatterns = [
     # ユーザマイページ
     path("user_home", user_home),
     # 検索条件設定ページ
-    path("search/<str:user_id>/", search),
+    path("search/<str:user_account>/", search),
     # 検索結果ページ
     path("recommend", recommend),
     # カメラページ

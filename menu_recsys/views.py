@@ -41,7 +41,7 @@ def user_info_input(request):
 
 
 # 検索条件入力
-def search(request, user_id):
+def search(request, user_account):
     if request.method == "GET":
         context = {
             "canteen_name_choices": Canteen.canteen_name_choices,
@@ -53,8 +53,9 @@ def search(request, user_id):
     # user_id = "60"
     # user_allergen = ["milk"]
     # user_gender = 1
+    user_id = User.objects.get(user_account=user_account).id
     user_gender = User.objects.get(id=user_id).gender
-    user_allergen = User.objects.get(id=user_id).allergen_choices.split(",")
+    user_allergen = [User.allergen_choices[int(i)-1][1] for i in User.objects.get(id=user_id).allergen]
     menus = Menu.objects.filter(canteen__canteen_name=canteen) \
         .exclude(reduce(lambda x, y: x | y, [Q(allergies__icontains=item) for item in user_allergen])) \
         .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),
