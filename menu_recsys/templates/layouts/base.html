@@ -50,7 +50,7 @@
 
     <div class="hidden_btns"> <!-- リンクは割と適当です -->
       <a class="button is-rounded" href="{% url 'user_home' user_account=request.user.user_account %}">home</a>
-      <a class="button is-rounded" href="{% url 'search' %}">search</a>
+      <a class="button is-rounded" href="{% url 'search' user_account=request.user.user_account %}">search</a>
       <a class="button is-rounded" href="{% url 'camera' %}">camera</a>
       <a class="button is-rounded" href="{% url 'profile' user_account=request.user.user_account %}">setting</a>
       <a class="button is-rounded" href="{% url 'history_order' %}">1週間の食事記録</a>
