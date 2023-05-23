@@ -21,6 +21,7 @@ from django.http import HttpResponse
 import urllib
 from django.shortcuts import get_object_or_404
 import tweepy
+from menu_recsys.scraping.weather import get_weather_info
 
 # ログイン前ホーム画面
 def home(request):
@@ -78,11 +79,16 @@ def logout_view(request):
 @user_account_required
 def user_home(request, user_account):
     user = get_object_or_404(User, user_account=user_account)
+    #history = get_object_or_404(History_order, user_account=user_account)
+    #history = History.objects.filter(user_account = user_account,...,....)
+    weather = get_weather_info()
+    #s = History_order.objects.get()
+    #history.get_deferred_fields
     ctx = {
-        "weather": "曇り時々",
-        "max_temp": "28℃",
-        "min_temp": "14℃",
-        "panda_type": "nutral", #nutral, slim, muscleの3つ?
+        "weather": weather["weather"],
+        "max_temp": weather["max_temperature"][0],
+        "min_temp": weather["min_temperature"][0],
+        "panda_type": user.target, #4:slim, 5:nutral, 6:muscleの3つ
         "panda_status": "fine", #fine, notgood, fatの3つ?
         "user": user
     }

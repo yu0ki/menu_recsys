@@ -106,12 +106,12 @@
 			function setimg(){
 				var p_id = 0;
 				var p_type = "{{ panda_type }}";
-				var type_num = 0;
+				var type_num = 0; //nomal
 				
 
-				if (p_type == "muscle"){
+				if (p_type == 6){ //"muscle"
 					type_num = 3
-				}else if(p_type == "slim"){
+				}else if(p_type == 4){ //"slim"
 					type_num = 6
 				}
 
@@ -205,8 +205,8 @@
 				//気温の表示
 				ctx.fillStyle = 'rgba(255, 0, 0)';
 				ctx.font = 'bold 20px sans-serif'
-				var maxt_text = "最高気温　" + "{{ max_temp }}"
-				var mint_text = "最低気温　" + "{{ min_temp }}"
+				var maxt_text = "最高気温　" + "{{ max_temp }}" + "℃"
+				var mint_text = "最低気温　" + "{{ min_temp }}" + "℃"
 
 				//文字の背景
 				var maxt_w = ctx.measureText(maxt_text);
