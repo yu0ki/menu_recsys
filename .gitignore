@@ -8,3 +8,4 @@ chromedriver
 db.sqlite3
 conda_to_pip.py
 key.json
+.idea/workspace.xml

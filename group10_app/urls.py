@@ -26,12 +26,12 @@ from menu_recsys.views import history_order
 
 
 urlpatterns = [
-    path("/admin", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", home),
     path("signup/", signup, name='signup'),
     path("login/", login_view, name="login"),
     path('user_home/<str:user_account>/', user_home, name='user_home'),
-    path("search/", search, name="search"),
+    path("search//<str:user_account>/", search, name="search"),
     path("recommend/", recommend),
     path('profile/<str:user_account>/', profile, name="profile"),
     path("dame/", dame, name="dame"),
