@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm
 from .models import User
 from django.contrib.auth.forms import forms
-from models import Menu, Canteen, History_order
+from .models import Menu, Canteen, History_order
 
 
 class SignUpForm(UserCreationForm):

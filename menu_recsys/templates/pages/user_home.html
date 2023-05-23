@@ -22,7 +22,7 @@
 				<div id="user_home_tool">
 					<div id="user_home_tool_item">
 						<div id="user_home_tool_align">
-							<a href="{% url 'search' %}">
+							<a href="{% url 'search' user_account=request.user.user_account %}">
 								<img src="{% static 'images/search_mushimegane.png' %}" id="user_home_tool_img" alt="検索" >
 							</a>
 						</div>

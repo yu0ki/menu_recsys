@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "menu_recsys",
     "widget_tweaks",
-    'multiselectfield',
-    "menu_recsys",
-    "widget_tweaks",
     'multiselectfield'
 ]
 
@@ -94,16 +91,7 @@ DATABASES = {
 #         'PORT': 3306,
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'menu_recsys',  # database name
-        'USER': 'root',  # your database account
-        'PASSWORD': 'YM&2000?lqs=7011',  # your database password
-        'HOST': '127.0.0.1',  # your host
-        'PORT': 3306,
-    }
-}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

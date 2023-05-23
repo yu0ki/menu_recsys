@@ -1,38 +1,36 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+{% load static %}
+{% load widget_tweaks %}
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>PlatePandA</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" defer ></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
-    <link rel="stylesheet" href="../layouts/head_foot.css" />
-  </head>
+<div class="section">
+    <form method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <span class="input-group-addon">予算</span>
+            <input type="text" class="form-control" placeholder="予算" name="budget">
+            <span class="input-group-addon">円</span>
+        </div>
+        <div class="form-group>">
+            <label>食堂</label>
+            <select class="form-control" name="canteen">
+                {% for item in canteen_name_choices%}
+                    <option value="{{ item.0 }}">{{ item.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>目標</label>
+            <select class="form-control" name="target">
+                <option value="0">ダイエット</option>
+                <option value="1">普通</option>
+                <option value="2">体重増加</option>
+            </select>
+        </div>
+        <button type="submit" class="btn-primary">確定</button>
+{#            <p><a href="/recommend">検索</a></p>#}
+    </form>
+</div>
 
-  <body>
-    <header>
-        <div class="container">
-            <h1 class="title"><a id="pp_head" href="../pages/user_home.html" style="color:black">PlatePandA</a></h1>
-            <h2 class="subtitle">Search</h2> <!-- 仮 -->
-        </div>   
-    </header>
 
-    <main class="container"> <!-- ここの内部構造に意味はないです -->
-        <div class="submenu column is-3">
-            <aside>
-            hoge
-            </aside>
-        </div>
-        <div class="column">
-            本体
-        </div>
-    </main>
- 
-    <footer> 
-        <div class="content has-text-centered">
-            2023 ©PlatePandA
-        </div>
-     </footer>
-  </body>
-</html>
+{% endblock %}

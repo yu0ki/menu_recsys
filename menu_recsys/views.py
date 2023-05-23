@@ -8,12 +8,13 @@ from django.contrib import messages
 from menu_recsys.models import User, History_order
 from .decorators import user_account_required
 from menu_recsys.database_update import database_update
-from menu_recsys.models import Menu
+from menu_recsys.models import Menu, Canteen
 from .order_recognition.image_processors import object_detect
 from django.http import HttpResponse
 import urllib
 from django.shortcuts import get_object_or_404
-import tweepyfrom menu_recsys.recommendation import menu_recommendation
+import tweepy
+from menu_recsys.recommendation import menu_recommendation
 from functools import reduce
 import datetime
 import pandas as pd
