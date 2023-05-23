@@ -219,10 +219,6 @@ def submit_lunch(request):
 
 
     
-    # # SNSシェア用リンク
-    # hashtag = "#PlatePandA"
-    # url = f"https://twitter.com/intent/tweet?text={urllib.parse.quote(hashtag)}&url=&hashtags={urllib.parse.quote(hashtag)}&amp;media={urllib.parse.quote(base64_image)}"
-
     # renderでそれっぽい画面を返す
     return render(request, 
                   'pages/submit_lunch.html', 
@@ -231,6 +227,15 @@ def submit_lunch(request):
                 #    "twitter_share_url": url
                    })
 
+
+def history_order(request):
+    print(History_order.objects.filter(user=request.user))
+    return render(request,
+                  'pages/history_order.html', 
+                  {
+                      'history_orders': History_order.objects.filter(user=request.user)
+                  }
+    )
 
 def update_menu_database(request):
     # データ更新
