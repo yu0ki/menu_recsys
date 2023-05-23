@@ -33,11 +33,29 @@
         <h1 class="title"><a id="pp_head_title" href="../pages/user_home.html" style="color:white">PlatePandA</a></h1>
         <h2 class="subtitle" style="color:white"> <!-- 書くとしたらページタイトル --></h2>
       </li>
-      <li>
-        <!-- メニューボタンですが、今は押しても何もなりません -->
-        <img src="{% static 'images/icon_head_menu.png' %}" id="pp_head_icon">
+      <li class="head_menu_btn">
+        <!-- メニューボタン -->
+        <img  src="{% static 'images/icon_head_menu.png' %}" id="pp_head_icon">
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+        <script>
+          $(function() {
+              $(".head_menu_btn").click(function() {
+                  $(".hidden_btns").slideToggle("");
+              });
+          });
+        </script>
+          
       </li>
     </header>
+
+    <div class="hidden_btns"> <!-- リンクは割と適当です -->
+      <a class="button is-rounded" href="../user_home">home</a>
+      <a class="button is-rounded" href="../search">search</a>
+      <a class="button is-rounded" href="../camera">camera</a>
+      <a class="button is-rounded" href="../profile">setting</a>
+      <a class="button is-rounded" href="../">1週間の食事記録</a>
+      <a class="button is-rounded is-danger " href="../login">log out</a>
+    </div>
 
     <main class="container"> <!-- ここの内部をいじると良いと思います -->
         {% block content %}

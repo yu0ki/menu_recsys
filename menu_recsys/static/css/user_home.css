@@ -20,12 +20,14 @@
 #user_home_tweet {
     height: 100%;
     width: 45%;
-    background-color: #069abb;
+    background-color: #95ecff;
+    overflow-y: auto;
 }
 #user_home_panda {
     height: 100%;
     width: 70%;
-    background-color: #a4acad;
+    /* background-color: #a4acad; */
+    background: white;
 }
 #user_home_tool{
     height: 100%;
@@ -47,4 +49,3 @@
     height: 100%;
     width: auto;
 }
-

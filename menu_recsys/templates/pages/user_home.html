@@ -4,27 +4,14 @@
         <div id="hide">
 			<div id="user_home_flexbox_top">
 				<div id="user_home_weather">
-
-					<!-- <h2>天気:{{ weather }}</h2> -->
 					<canvas id="canvas_weather"></canvas>
-					<!-- <script>
-						const	user_home_weather = document.getElementById( "user_home_weather" );
-						var canvas_weather = document.getElementById("canvas_weather");
-						canvas_weather.width = user_home_weather.clientWidth;
-						canvas_weather.height = user_home_weather.clientHeight;
-						var weather = "{{ weather }}";
-						var img_weather = new Image();
-						if (weather == "晴れ"){
-							img_weather.src = "{% static 'images/sunny.png' %}";//1920x1080
-						}
-
-					</script> -->
-					<!-- <p>コンテンツ1</p> -->
 				</div>
 				<div id ="user_home_tweet">
 					<!-- <h2>＃PlatePandAのタイムライン</h2> -->
-					<a class="twitter-timeline" data-width="220" data-height="200" href="https://twitter.com/kyotoyunesuko?ref_src=twsrc%5Etfw">Tweets by kyotoyunesuko</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-					<a href="https://twitter.com/intent/tweet?text=%0A%0A%23%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AE%EF%BC%A7%EF%BC%B7%E4%BA%88%E5%AE%9A%E8%A1%A8%20%23PlatePandA%0Ahttps%3A%2F%2Fgithub.com/yu0ki/menu_recsys%0A" class="twitter-hashtag-button" data-show-count="false">Tweet #PlatePandA</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+					<a class="twitter-timeline" data-width="100%" data-height="200" href="https://twitter.com/kyotoyunesuko?ref_src=twsrc%5Etfw">Tweets by kyotoyunesuko</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+					<!-- <a href="https://twitter.com/intent/tweet?text=%0A%0A%23%E3%81%82%E3%81%AA%E3%81%9F%E3%81%AE%EF%BC%A7%EF%BC%B7%E4%BA%88%E5%AE%9A%E8%A1%A8%20%23PlatePandA%0Ahttps%3A%2F%2Fgithub.com/yu0ki/menu_recsys%0A" class="twitter-hashtag-button" data-show-count="false">Tweet #PlatePandA</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+					<blockquote class="twitter-tweet"><p lang="zh" dir="ltr" >无忧无虑，此生只负责可爱😍😍<a href="https://twitter.com/hashtag/panda?src=hash&amp;ref_src=twsrc%5Etfw">#panda</a> <a href="https://twitter.com/hashtag/animal?src=hash&amp;ref_src=twsrc%5Etfw">#animal</a> <a href="https://twitter.com/hashtag/cute?src=hash&amp;ref_src=twsrc%5Etfw">#cute</a> <a href="https://t.co/FQxxYAQ4Ic">pic.twitter.com/FQxxYAQ4Ic</a></p>&mdash; 小瑷 (@qinxiaoai1) <a href="https://twitter.com/qinxiaoai1/status/1655913007879270400?ref_src=twsrc%5Etfw">May 9, 2023</a></blockquote> 
+					<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 					<!-- <p>コンテンツ2</p> -->
 				</div>
 			</div>
@@ -35,49 +22,211 @@
 				<div id="user_home_tool">
 					<div id="user_home_tool_item">
 						<div id="user_home_tool_align">
-							<a href="{% url 'search' %}">
+							<a href="../search.html">
 								<img src="{% static 'images/search_mushimegane.png' %}" id="user_home_tool_img" alt="検索" >
 							</a>
 						</div>
 					</div>
 					<div id="user_home_tool_item">
 						<div id="user_home_tool_align">
-							<a href="{% url 'camera' %}">
+							<a href="../camera.html">
 								<img src="{% static 'images/camera.png' %}" id="user_home_tool_img" alt="カメラ">
 							</a>
 						</div>
 					</div>
 					<div id="user_home_tool_item">
 						<div id="user_home_tool_align">
-							<a href="{% url 'profile' user_account=request.user.user_account %}" >
+							<a href="../setting.html" >
 								<img src="{% static 'images/setting.png' %}" id="user_home_tool_img" alt="設定">
 							</a>
 						</div>
 					</div>
-                    <a href="../../profile/{{  user.user_account }}">プロフィール登録</a>
-                    <a href="{% url 'logout' %}">ログアウト</a>
 				</div>
 			</div>
 		</div>
 		<script>
 			"use strict";
+			var panda_img = 0;
+			var idx_weather = 22
+			var adjust_x = 0;
+			var pos_y = 0;
+			var move = 0;
 			// カウンタ変数の初期化
 			var count = 0;
 
+			//画像へのパス
+			var pathList = [
+				//健康体 500x500 9個
+				"{% static 'images/panda_anim/nomal1.png' %}",
+				"{% static 'images/panda_anim/nomal2.png' %}",
+				"{% static 'images/panda_anim/nomal3.png' %}",
+				"{% static 'images/panda_anim/muscle1.png' %}",
+				"{% static 'images/panda_anim/muscle2.png' %}",
+				"{% static 'images/panda_anim/muscle3.png' %}",
+				"{% static 'images/panda_anim/idol1.png' %}",
+				"{% static 'images/panda_anim/idol2.png' %}",
+				"{% static 'images/panda_anim/idol3.png' %}",
+				//元気なし　2個
+				"{% static 'images/panda_anim/weak1.png' %}",
+				"{% static 'images/panda_anim/weak2.png' %}",
+				//太りすぎ　3個
+				"{% static 'images/panda_anim/fat1.png' %}",
+				"{% static 'images/panda_anim/fat2.png' %}",
+				"{% static 'images/panda_anim/fat3.png' %}",
+				//移動　7個
+				"{% static 'images/panda_anim/stand.png' %}",
+				"{% static 'images/panda_anim/run_left1.png' %}",
+				"{% static 'images/panda_anim/run_left2.png' %}",
+				"{% static 'images/panda_anim/stop_left.png' %}",
+				"{% static 'images/panda_anim/run_right1.png' %}",
+				"{% static 'images/panda_anim/run_right2.png' %}",
+				"{% static 'images/panda_anim/stop_right.png' %}",
+
+				//2552x1701
+				"{% static 'images/kusunoki.png' %}",
+
+
+				//天気
+				"{% static 'images/sky.png' %}", //1024x683
+				//150x80
+				"{% static 'images/clips/10.png' %}",
+				"{% static 'images/clips/20.png' %}",
+				"{% static 'images/clips/30.png' %}",
+				"{% static 'images/clips/12.png' %}",
+			];
+
+			//画像読み込み
+			var img = new Array();
+			for (var i = 0; i < pathList.length; i++) {
+    			var image = new Image();
+    			image.src = pathList[i];
+    			img.push(image);
+			}
+
+			function setimg(){
+				var p_id = 0;
+				var p_type = "{{ panda_type }}";
+				var type_num = 0;
+				
+
+				if (p_type == "muscle"){
+					type_num = 3
+				}else if(p_type == "slim"){
+					type_num = 6
+				}
+
+				var p_status = "{{ panda_status }}";
+				if (p_status == "fine"){
+					if ((count %150) < 50 ) {
+						p_id = 0 + type_num;
+					} else if ((count %150) < 100){
+						p_id = 1 + type_num;
+					} else{
+						p_id = 2 + type_num;
+					}
+				}else if(p_status == "notgood"){
+					adjust_x = 50;
+					if ((count %100) < 50 ) {
+						p_id = 9;
+					} else {
+						p_id = 10;
+					}
+				}else if(p_status == "fat"){
+					if ((count %150) < 50 ) {
+						p_id = 11;
+					} else if ((count %150) < 75){
+						p_id = 12;
+					} else if ((count %150) < 125){
+						p_id = 13;
+					} else{
+						p_id = 12;
+					}
+				}
+				panda_img = img[p_id];
+			}
+
+			function  move_panda(dh){
+				if(move > 10){//右に移動
+					if(count%4==0){
+						move = move-1;
+						pos_y = pos_y+1;
+					}
+
+					if ((count %100) < 50 ) {
+						panda_img = img[18];
+					} else {
+						panda_img = img[19];
+					}
+				}else if(move < -10){
+					if(count%4==0){
+						move = move+1;
+						pos_y = pos_y-1;
+					}
+					if ((count %100) < 50 ) {
+						panda_img = img[15];
+					} else {
+						panda_img = img[16];
+					}
+				}else {
+					pos_y = pos_y + move;
+					move = 0;
+				}
+				
+			}
+
+
 			//天気部分の描画
 			function weather(){
-				const	user_home_weather = document.getElementById( "user_home_weather" );
-				const canvas_weather = document.getElementById("canvas_weather");
+				const frame = document.getElementById( "user_home_weather" );
+				const canvas = document.getElementById("canvas_weather");
 				// 2Dコンテキストを取得する
-				const ctx1 = canvas_weather.getContext("2d");
-				canvas_weather.width = user_home_weather.clientWidth;
-				canvas_weather.height = user_home_weather.clientHeight;
+				const ctx = canvas.getContext("2d"); 
+				canvas.width = frame.clientWidth;
+				canvas.height = frame.clientHeight;
+				const dw = frame.clientWidth;
+				const dh = frame.clientHeight;
 				var weather = "{{ weather }}";
-				const img_weather = new Image();
-				if (weather="晴れ"){
-					img_weather.src = "{% static 'images/sunny.png' %}";//1920x1080
-					ctx1.drawImage(img_weather, 0, 0, 600, 600, 0, 0, user_home_weather.clientHeight, user_home_weather.clientHeight);
+				var adj_id = 0;
+				//天気の背景
+				ctx.drawImage(img[idx_weather], 0, 0, 1024, 683, 0, 0, dw, dh);
+
+				//天気の表示
+				if(weather=="晴れ"){
+					adj_id = 1;
+				}else if (weather=="曇り"){
+					adj_id = 2;
+				}else if(weather=="雨"){
+					adj_id = 3;
+				}else{
+					adj_id = 4;
 				}
+				ctx.drawImage(img[idx_weather+adj_id], 0, 0, 150, 80, 20, 0, (dh*15/8)*2/5, dh*2/5);
+
+				//気温の表示
+				ctx.fillStyle = 'rgba(255, 0, 0)';
+				ctx.font = 'bold 20px sans-serif'
+				var maxt_text = "最高気温　" + "{{ max_temp }}"
+				var mint_text = "最低気温　" + "{{ min_temp }}"
+
+				//文字の背景
+				var maxt_w = ctx.measureText(maxt_text);
+				var mint_w = ctx.measureText(mint_text);
+				//先に背景ボックスを描画
+				ctx.fillStyle = '#e0ffff';
+				ctx.fillRect(20,dh*3/5-10,maxt_w.width,20);
+				ctx.fillRect(20,dh*4/5-10,maxt_w.width,20);
+				//5pxの線の四角形で囲む
+				ctx.strokeStyle = '#e0ffff';
+				ctx.lineWidth = 5;
+				ctx.strokeRect(20,dh*3/5-10,maxt_w.width,20);
+				ctx.strokeRect(20,dh*4/5-10,maxt_w.width,20);
+
+				//テキストを描画
+				ctx.textBaseline = 'middle'
+				ctx.fillStyle = 'rgba(255, 0, 0)';
+				ctx.fillText(maxt_text, 20, dh*3/5);
+				ctx.fillStyle = 'rgba(0, 0, 255)';
+				ctx.fillText(mint_text, 20, dh*4/5);
 			}
 
 			//パンダ部分の描画
@@ -87,51 +236,26 @@
 				var canvas = document.getElementById("canvas_panda");
 				canvas.width = frame.clientWidth;
 				canvas.height = frame.clientHeight;
-
-				// 2Dコンテキストを取得する
-				var ctx2 = canvas.getContext("2d");
-
-				var img_back = new Image();
-				img_back.src = "{% static 'images/camp.png' %}";//1920x1080
-
-				var img_g = new Image();//330x330
-				img_g.src = "{% static 'images/animal_01_g.png' %}";
-				var img_i = new Image();
-				img_i.src = "{% static 'images/animal_01_i.png' %}";
-
-				ctx2.drawImage(img_back, 900 - (frame.clientWidth/2), 900 - frame.clientHeight, frame.clientWidth, frame.clientHeight, 0, 0, frame.clientWidth, frame.clientHeight);
-
-				if ((count %80) > 40 ) {
-						ctx2.drawImage(img_g, 0, 0, 330, 330, (frame.clientWidth/2) - (frame.clientHeight/6), frame.clientHeight*1/2, frame.clientHeight/3, frame.clientHeight/3);
-				} else {
-						ctx2.drawImage(img_i, 0, 0, 330, 330, (frame.clientWidth/2) - (frame.clientHeight/6), frame.clientHeight*1/2, frame.clientHeight/3, frame.clientHeight/3);
-				}
-			}
-
-			//ツール部分の描画
-			function tool(){
-				// キャンバス要素を取得する
-				const	frame = document.getElementById( "user_home_tool" );
-				const canvas = document.getElementById("canvas_tool");
-				canvas.width = frame.clientWidth;
-				canvas.height = frame.clientHeight;
 				const dw = frame.clientWidth;
 				const dh = frame.clientHeight;
-
 				// 2Dコンテキストを取得する
-				var ctx = canvas.getContext("2d");
+				var ctx = canvas.getContext("2d"); 
+				
+				//背景の表示
+				ctx.drawImage(img[21], 2552/2 - (1701*dw)/dh/2, 0, (1701*dw)/dh, 1701, 0, 0, dw, dh);
+				
+				setimg();
+				
+				if(count%901 == 0 && move==0){ move = Math.floor(Math.random() * ( ((dh/4)+1-pos_y) - ((-dh/4)-pos_y) )) + ((-dh/4)-pos_y); }
 
-				var img_search = new Image();
-				img_search.src = "{% static 'images/search_mushimegane.png' %}";//256x256
-				var img_camera = new Image();
-				img_camera.src = "{% static 'images/camera.png' %}";//256x256
-				var img_setting = new Image();
-				img_setting.src = "{% static 'images/setting.png' %}";//256x256
+				if (move != 0 ){
+					move_panda(dh);
+				}
 
-				// ctx.drawImage(img_search, 0, 0, 256, 256, dw/2-dh/6, 0, dh/3, dh/3);
-				// ctx.drawImage(img_camera, 0, 0, 256, 256, dw/2-dh/6, dh/3, dh/3, dh/3);
-				// ctx.drawImage(img_setting, 0, 0, 256, 256, dw/2-dh/6, dh*2/3, dh/3, dh/3);
+				//パンダの表示
+				ctx.drawImage(panda_img, 0, 0, 600, 600, (dw/2)-dh/4 +pos_y, dh*1/2 + adjust_x, dh/2, dh/2);
 			}
+
 
 			// requestAnimationFrame()メソッドでループを実行
 			function loop() {
@@ -142,10 +266,8 @@
 				weather();
 				//パンダ部分
 				panda();
-				//ツール部分
-				//tool();
-
-				   // 次のフレームをリクエストする
+				
+				// 次のフレームをリクエストする
 				requestAnimationFrame(loop);
 			}
 
@@ -153,7 +275,7 @@
 
 
 		</script>
-
-
+	
+			
 
 {% endblock %}

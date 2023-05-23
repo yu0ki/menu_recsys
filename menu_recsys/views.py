@@ -20,7 +20,7 @@ from .order_recognition.image_processors import object_detect
 from django.http import HttpResponse
 import urllib
 from django.shortcuts import get_object_or_404
-
+import tweepy
 
 # ログイン前ホーム画面
 def home(request):
@@ -78,11 +78,32 @@ def logout_view(request):
 @user_account_required
 def user_home(request, user_account):
     user = get_object_or_404(User, user_account=user_account)
-    return render(request, "pages/user_home.html", {"user": user, "weather": "晴れ"})
+    ctx = {
+        "weather": "曇り時々",
+        "max_temp": "28℃",
+        "min_temp": "14℃",
+        "panda_type": "nutral", #nutral, slim, muscleの3つ?
+        "panda_status": "fine", #fine, notgood, fatの3つ?
+        "user": user
+    }
+    
+    return render(request, "pages/user_home.html", ctx)
 
 
 def user_info_input(request):
     pass
+
+
+# # ユーザホーム
+# def user_home(request):
+#     ctx = {
+#         "weather": "曇り時々",
+#         "max_temp": "28℃",
+#         "min_temp": "14℃",
+#         "panda_type": "nutral", #nutral, slim, muscleの3つ?
+#         "panda_status": "fine", #fine, notgood, fatの3つ?
+#     }
+#     return render(request, 'pages/user_home.html', ctx)
 
 
 # 検索条件入力
