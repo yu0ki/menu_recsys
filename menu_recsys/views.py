@@ -281,13 +281,17 @@ def submit_lunch(request):
         dish_id = request.POST.get('dish-' + str(len(dishes)))
 
     # データベースに保存
+    dish_cal = 0
     for dish_id in dish_ids:
         data = {
             'user': request.user,
             'dish': Menu.objects.get(id=dish_id),
         }
         History_order.objects.create(**data)
-
+    dish_cal += get_object_or_404(Menu, id=dish_id).energy
+    user = request.user
+    user.petstatus = dish_cal
+    user.save()
 
     
     # renderでそれっぽい画面を返す

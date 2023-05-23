@@ -50,6 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     age = models.PositiveSmallIntegerField(blank=True, null=True)
     height = models.PositiveSmallIntegerField(blank=True, null=True)
     weight = models.PositiveSmallIntegerField(blank=True, null=True)
+    petstatus = models.PositiveSmallIntegerField(blank=True, null=True)
     gender_choices = (
         (1, "男"),
         (2, "女"),
