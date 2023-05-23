@@ -7,21 +7,54 @@ from menu_recsys.forms import SignUpForm, UserProfileForm, UserAllergenForm
 from django.contrib import messages
 from menu_recsys.models import User, History_order
 from .decorators import user_account_required
-
-
-def my_view(request):
-    # Do some work here...
-    return HttpResponse("Hello, world!")
-
-from menu_recsys.models import User
 from menu_recsys.database_update import database_update
-from menu_recsys.models import Menu
+from menu_recsys.models import Menu, Canteen
 from .order_recognition.image_processors import object_detect
 from django.http import HttpResponse
 import urllib
 from django.shortcuts import get_object_or_404
 import tweepy
 from menu_recsys.scraping.weather import get_weather_info
+from menu_recsys.recommendation import menu_recommendation
+from functools import reduce
+import datetime
+import pandas as pd
+from django.shortcuts import HttpResponse, redirect
+from django.db.models import Q
+from django.views.generic import View
+from django.core.paginator import Paginator
+
+
+ALLERGEN_JP2EN = {
+    "卵": "egg",
+    "牛乳": "milk",
+    "落花生": "peanut",
+    "そば": "soba",
+    "小麦": "wheat",
+    "えび": "seafood",
+    "かに": "seafood",
+    "あわび": "seafood",
+    "いか": "seafood",
+    "いくら": "seafood",
+    "さけ": "seafood",
+    "さば": "seafood",
+    "牛肉": "beef",
+    "鶏肉": "chicken",
+    "豚肉": "pork",
+    "大豆": "soybean",
+    "松茸": "matsutake",
+    "山芋": "potato",
+    "オレンジ": "orange",
+    "桃": "peach",
+    "キウイフルーツ": "kiwi fruit",
+    "りんご": "apple",
+    "くるみ": "walnut",
+    "ゼラチン": "gelatin",
+    "バナナ": "banana",
+    "ゴマ": "sesame",
+    "カシューナッツ": "nut"
+}
+
 
 # ログイン前ホーム画面
 def home(request):
@@ -113,19 +146,51 @@ def user_info_input(request):
 
 
 # 検索条件入力
-def search(request):
-    pass
+def search(request, user_account):
+    if request.method == "GET":
+        context = {
+            "canteen_name_choices": Canteen.canteen_name_choices,
+        }
+        return render(request, "pages/search.html", context=context)
+    budget = request.POST.get("budget")
+    canteen = request.POST.get("canteen")
+    target = request.POST.get("target")
+    # user_id = "60"
+    # user_allergen = ["milk"]
+    # user_gender = 1
+    user_id = User.objects.get(user_account=user_account).id
+    user_gender = User.objects.get(id=user_id).gender
+    if len(User.objects.get(id=user_id).allergen) == 0:
+        menus = Menu.objects.filter(canteen__canteen_name=canteen) \
+            .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),
+                     history_order__user_id=user_id)
+    else:
+        user_allergen = [ALLERGEN_JP2EN[User.allergen_choices[int(i)-1][1]] for i in User.objects.get(id=user_id).allergen]
+        menus = Menu.objects.filter(canteen__canteen_name=canteen) \
+            .exclude(reduce(lambda x, y: x | y, [Q(allergies__icontains=item) for item in user_allergen])) \
+            .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),
+                     history_order__user_id=user_id)
+    menus_ = list()
+    menus_index = list()
+    for menu in menus:
+        menus_.append([menu.id, menu.price, menu.protein, menu.carbohydrates, menu.veg])
+        menus_index.append(menu.id)
+    menus_columns = ["id", "price", "protein", "carbohydrates", "veg"]
+    menus = pd.DataFrame(data=menus_, index=menus_index, columns=menus_columns)
+    menu_id = menu_recommendation.recommending(menus, max_number=5, max_price=budget, gender=user_gender, momentum=target)
+    return recommend(request, menu_id=menu_id)
+
     # x = database_update.canteen_database_update()
-    # if x:
-    #     return render(request, "pages/recommend.html")
-    # else:
-    #     return render(request, "pages/search.html")
 
 
 # 検索結果
-def recommend(request):
-    pass
-
+def recommend(request, menu_id=None):
+    if menu_id is None:
+        menu = Menu.objects.all()
+    else:
+        menu_id = menu_id[0]
+        menu = Menu.objects.filter(reduce(lambda x, y: x | y, [Q(id=item) for item in menu_id]))
+    return render(request, "pages/recommend.html", {"menu": menu})
 
 @user_account_required
 def profile(request, user_account):
@@ -225,10 +290,6 @@ def submit_lunch(request):
 
 
     
-    # # SNSシェア用リンク
-    # hashtag = "#PlatePandA"
-    # url = f"https://twitter.com/intent/tweet?text={urllib.parse.quote(hashtag)}&url=&hashtags={urllib.parse.quote(hashtag)}&amp;media={urllib.parse.quote(base64_image)}"
-
     # renderでそれっぽい画面を返す
     return render(request, 
                   'pages/submit_lunch.html', 
@@ -237,6 +298,15 @@ def submit_lunch(request):
                 #    "twitter_share_url": url
                    })
 
+
+def history_order(request):
+    print(History_order.objects.filter(user=request.user))
+    return render(request,
+                  'pages/history_order.html', 
+                  {
+                      'history_orders': History_order.objects.filter(user=request.user)
+                  }
+    )
 
 def update_menu_database(request):
     # データ更新

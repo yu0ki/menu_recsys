@@ -22,15 +22,16 @@ from menu_recsys.views import user_info_input
 from menu_recsys.views import camera
 from menu_recsys.views import lunch_photo, submit_lunch
 from menu_recsys.views import update_menu_database
+from menu_recsys.views import history_order
 
 
 urlpatterns = [
-    path("/admin", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", home),
     path("signup/", signup, name='signup'),
     path("login/", login_view, name="login"),
     path('user_home/<str:user_account>/', user_home, name='user_home'),
-    path("search/", search, name="search"),
+    path("search/<str:user_account>/", search, name="search"),
     path("recommend/", recommend),
     path('profile/<str:user_account>/', profile, name="profile"),
     path("dame/", dame, name="dame"),
@@ -47,5 +48,7 @@ urlpatterns = [
     # ユーザ情報入力ページ
     path("user_home/user_info_input", user_info_input),
     # メニュースクレイピング起動 -> データベース保存
-    path("update_menu_database", update_menu_database)
+    path("update_menu_database", update_menu_database),
+    # 食事履歴
+    path("history_order/", history_order, name="history_order"),
 ]
