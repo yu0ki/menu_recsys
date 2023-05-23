@@ -32,7 +32,7 @@ urlpatterns = [
     # ユーザマイページ
     path("user_home", user_home),
     # 検索条件設定ページ
-    path("search", search),
+    path("search/<str:user_id>/", search),
     # 検索結果ページ
     path("recommend", recommend),
     # カメラページ
