@@ -24,6 +24,37 @@ from django.views.generic import View
 from django.core.paginator import Paginator
 
 
+ALLERGEN_JP2EN = {
+    "卵": "egg",
+    "牛乳": "milk",
+    "落花生": "peanut",
+    "そば": "soba",
+    "小麦": "wheat",
+    "えび": "seafood",
+    "かに": "seafood",
+    "あわび": "seafood",
+    "いか": "seafood",
+    "いくら": "seafood",
+    "さけ": "seafood",
+    "さば": "seafood",
+    "牛肉": "beef",
+    "鶏肉": "chicken",
+    "豚肉": "pork",
+    "大豆": "soybean",
+    "松茸": "matsutake",
+    "山芋": "potato",
+    "オレンジ": "orange",
+    "桃": "peach",
+    "キウイフルーツ": "kiwi fruit",
+    "りんご": "apple",
+    "くるみ": "walnut",
+    "ゼラチン": "gelatin",
+    "バナナ": "banana",
+    "ゴマ": "sesame",
+    "カシューナッツ": "nut"
+}
+
+
 # ログイン前ホーム画面
 def home(request):
     return redirect("login")
@@ -123,11 +154,16 @@ def search(request, user_account):
     # user_gender = 1
     user_id = User.objects.get(user_account=user_account).id
     user_gender = User.objects.get(id=user_id).gender
-    user_allergen = [User.allergen_choices[int(i)-1][1] for i in User.objects.get(id=user_id).allergen]
-    menus = Menu.objects.filter(canteen__canteen_name=canteen) \
-        .exclude(reduce(lambda x, y: x | y, [Q(allergies__icontains=item) for item in user_allergen])) \
-        .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),
-                 history_order__user_id=user_id)
+    if len(User.objects.get(id=user_id).allergen) == 0:
+        menus = Menu.objects.filter(canteen__canteen_name=canteen) \
+            .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),
+                     history_order__user_id=user_id)
+    else:
+        user_allergen = [ALLERGEN_JP2EN[User.allergen_choices[int(i)-1][1]] for i in User.objects.get(id=user_id).allergen]
+        menus = Menu.objects.filter(canteen__canteen_name=canteen) \
+            .exclude(reduce(lambda x, y: x | y, [Q(allergies__icontains=item) for item in user_allergen])) \
+            .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),
+                     history_order__user_id=user_id)
     menus_ = list()
     menus_index = list()
     for menu in menus:
