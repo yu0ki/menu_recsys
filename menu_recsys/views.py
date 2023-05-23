@@ -19,33 +19,12 @@ def home(request):
 # ログイン・サインアップ関連
 # サインアップ
 def signup(request):
-    if request.method == "GET":
-        return render(request, "pages/signup.html")
-    user_account = request.POST.get("user_account")
-    user_pwd = request.POST.get("user_pwd")
-    if not User.objects.filter(user_account=user_account).exists():
-        User.objects.create(user_account=user_account, user_pwd=user_pwd)
-        return render(request, "pages/user_home.html", {"msg": "Account created successfully"})
-    else:
-        return render(request, "pages/signup.html", {"error_msg": "username existed!"})
+    pass
 
 
 # ログイン
 def login(request):
-    if request.method == "GET":
-        return render(request, "pages/login.html")
-
-    user_account = request.POST.get("user_account")
-    user_pwd = request.POST.get("user_pwd")
-    if User.objects.filter(user_account=user_account).exists():
-        user_existed = User.objects.get(user_account=user_account)
-        if user_existed.user_pwd == user_pwd:
-            return render(request, "pages/user_home.html", {"msg": "Login successfully"})
-        else:
-            return render(request, "pages/login.html", {"error_msg": "Incorrect password"})
-    else:
-        return render(request, "pages/login.html", {"error_msg": "Incorrect account"})
-
+    pass
 
 # ログアウト
 def logout(request):
@@ -62,7 +41,7 @@ def user_info_input(request):
 
 
 # 検索条件入力
-def search(request):
+def search(request, user_id):
     if request.method == "GET":
         context = {
             "canteen_name_choices": Canteen.canteen_name_choices,
@@ -70,12 +49,12 @@ def search(request):
         return render(request, "pages/search.html", context=context)
     budget = request.POST.get("budget")
     canteen = request.POST.get("canteen")
-    types = request.POST.get("types")
     target = request.POST.get("target")
-    user_allergen = ["milk"]
-    user_id = "60"
-    # user_gender = User.objects.get(id=user_id).gender
-    user_gender = 1
+    # user_id = "60"
+    # user_allergen = ["milk"]
+    # user_gender = 1
+    user_gender = User.objects.get(id=user_id).gender
+    user_allergen = User.objects.get(id=user_id).allergen_choices.split(",")
     menus = Menu.objects.filter(canteen__canteen_name=canteen) \
         .exclude(reduce(lambda x, y: x | y, [Q(allergies__icontains=item) for item in user_allergen])) \
         .exclude(history_order__order_date__gt=datetime.date.today() - datetime.timedelta(7),

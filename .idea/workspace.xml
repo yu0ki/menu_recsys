@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5724b469-d883-480a-ad12-0d5b1e3085c5" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4d1b7ea0-a29e-47a1-a33e-b1cf05546b6c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4d1b7ea0-a29e-47a1-a33e-b1cf05546b6c.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group10_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/group10_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/menu_recsys/templates/pages/recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/templates/pages/recommend.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menu_recsys/templates/pages/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/templates/pages/search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menu_recsys/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_recsys/views.py" afterDir="false" />
     </list>
@@ -55,7 +57,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "DBlogic",
-    "last_opened_file_path": "E:/Django/day17 Django开发",
+    "last_opened_file_path": "E:/GitHub/menu_recsys",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -215,6 +217,7 @@
       <workItem from="1683606327750" duration="16958000" />
       <workItem from="1683699846432" duration="28000" />
       <workItem from="1683700190698" duration="15552000" />
+      <workItem from="1684819814389" duration="1602000" />
     </task>
     <servers />
   </component>
@@ -236,6 +239,7 @@
     <SUITE FILE_PATH="coverage/menu_recsys$DB_update.coverage" NAME="DB_update 覆盖结果" MODIFIED="1683126722965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/menu_recsys/DB_update" />
     <SUITE FILE_PATH="coverage/menu_recsys$manage.coverage" NAME="manage 覆盖结果" MODIFIED="1682419882450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/menu_recsys$database_update.coverage" NAME="database_update 覆盖结果" MODIFIED="1683134961380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/menu_recsys/database_update" />
-    <SUITE FILE_PATH="coverage/menu_recsys$practice.coverage" NAME="practice 覆盖结果" MODIFIED="1683143028918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/menu_recsys/scraping" />
+    <SUITE FILE_PATH="coverage/menu_recsys$scratch.coverage" NAME="scratch 覆盖结果" MODIFIED="1684235265660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$APPLICATION_CONFIG_DIR$/scratches" />
+    <SUITE FILE_PATH="coverage/menu_recsys$practice.coverage" NAME="practice 覆盖结果" MODIFIED="1684215391713" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/menu_recsys/scraping" />
   </component>
 </project>
