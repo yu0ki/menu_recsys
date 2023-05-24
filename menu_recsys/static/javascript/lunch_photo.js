@@ -11,11 +11,12 @@ addFieldBtn.addEventListener("click", () => {
   
 
   // Add unique ID to each field to ensure proper form submission
+  // ドキュメント内のすべてのselect要素を取得
+  var selectElements = document.getElementsByTagName("select");
   Array.from(newField.children).forEach((el) => {
-    const elName = el.getAttribute("name");
-    if (elName) {
-      el.setAttribute("name", `${elName}_${fieldCount}`);
-    }
+    // if (elName) {
+      el.setAttribute("name", `dish-${selectElements.length}`);
+    // }
   });
 
     // 削除ボタンにOnClickリスナーをつける

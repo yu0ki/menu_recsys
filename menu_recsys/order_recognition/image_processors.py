@@ -5,7 +5,7 @@ from google.oauth2 import service_account
 import cv2
 import imgsim
 import numpy as np
-import urllib
+from ..models import Menu
 import os
 import base64
 
@@ -38,16 +38,21 @@ def object_detect(base64_image, menu_list):
     # 食堂メニュー情報整形
     # データベースからimage_urlを取得済み
     # それを使って画像を取得し、リスト形式で保存
-    image_url_list = [ml["image_url"] for ml in menu_list]
+    # image_url_list = [ml["image_url"] for ml in menu_list]
     menus = []
-    for url in image_url_list[:27]:
-        print(url)
-        # 画像をダウンロードして、numpy配列に読み込む
-        req = urllib.request.urlopen(url)
-        arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
-        # numpy配列から画像を読み込み
-        img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
-        menus.append(img)
+    # for url in image_url_list[:27]:
+    #     print(url)
+    #     # 画像をダウンロードして、numpy配列に読み込む
+    #     req = urllib.request.urlopen(url)
+    #     arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
+    #     # numpy配列から画像を読み込み
+    #     img = cv2.imdecode(arr, cv2.IMREAD_COLOR)
+    #     menus.append(img)
+    for menu_dic in menu_list:
+        menu = Menu.objects.get(id=menu_dic["id"])
+        menu_image_path = menu.image.path
+        menu_image = cv2.imread(menu_image_path)
+        menus.append(menu_image)
 
     # 画像をベクトルに変換
     vtr = imgsim.Vectorizer()

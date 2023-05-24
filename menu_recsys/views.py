@@ -259,7 +259,6 @@ def lunch_photo(request):
 
 # 撮った写真から食べた献立を特定し、データベースに保存
 def submit_lunch(request):
-    pass
     # lunch_photo経由で送られてきた画像を取得
     base64_image = request.POST.get('image')
 
@@ -273,7 +272,7 @@ def submit_lunch(request):
         dishes.append(dish_name)
         dish_ids.append(dish_id)
         dish_id = request.POST.get('dish-' + str(len(dishes)))
-
+    print(dishes)
     # データベースに保存
     dish_cal = 0
     for dish_id in dish_ids:

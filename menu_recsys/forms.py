@@ -50,13 +50,14 @@ class MenuForm(forms.ModelForm):
         fields = ["dish_url", "canteen", "dish_name", "dish_en_name", "image_url", "price",
                   "energy", "protein", "fat", "carbohydrates", "salt", "calcium", "veg",
                   "iron", "vitamin_a", "vitamin_b1", "vitamin_b2", "vitamin_c", "place_of_origin",
-                  "allergies"]
+                  "allergies", "image"]
         labels = {
             "dish_url": "料理のリンク",
             "canteen": "食堂ID",
             "dish_name": "料理名",
             "dish_en_name": "英語の料理名",
             "image_url": "商品画像のリンク",
+            "image": "画像",
             "price": "組価(税込)",
             "energy": "エネルギー",
             "protein": "タンパク質",

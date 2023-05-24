@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 
 
+
 # メニュー詳細ページから、１つのメニューの詳細情報を取得する関数
 # 入力：メニューURL
 def get_menu_info(url: str, en_name_exists=True):
@@ -33,6 +34,7 @@ def get_menu_info(url: str, en_name_exists=True):
         # 商品画像
         image_url = soup.select("#main > div.menuImgBox > img")[0]["src"]
         # print("image_url: ", image_url)
+
 
         # 値段（税込）
         price = soup.select(

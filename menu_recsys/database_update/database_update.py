@@ -3,6 +3,9 @@ from menu_recsys.scraping.menu import get_menu_info, get_menu_urls
 import logging
 import time
 import traceback
+from django.core.files import File
+import requests
+from io import BytesIO
 
 CANTEEN_ID = {
     1: 650111,
@@ -53,6 +56,8 @@ def menu_database_update(canteen_id: int) -> None:
                     for key, value in menu_info.items():
                         if value == "-":
                             menu_info[key] = 0
+                    # 画像取得
+                    image_response = requests.get(menu_info["image_url"])
                     Menu.objects.create(dish_url=menu_url,
                                         canteen=canteen,
                                         dish_name=menu_info["dish_name"],
@@ -72,7 +77,7 @@ def menu_database_update(canteen_id: int) -> None:
                                         vitamin_b2=float(menu_info["vitamin_b2"]),
                                         vitamin_c=int(menu_info["vitamin_c"]),
                                         place_of_origin=str(menu_info["place_of_origin"]),
-                                        allergies=",".join(menu_info["allergies"]))
+                                        allergies=",".join(menu_info["allergies"])).image.save(menu_info["dish_name"] + '.jpg', File(BytesIO(image_response.content)), save=True)
                     logging.info('Successfully write the data into database\n--------------\n')
             else:
                 logging.error("Cannot get the data without dish_en_name\n--------------\n")

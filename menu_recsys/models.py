@@ -138,6 +138,7 @@ class Menu(models.Model):
     dish_name = models.CharField(verbose_name="料理名", max_length=64, blank=False, null=False, default="Unknown")
     dish_en_name = models.CharField(verbose_name="英語の料理名", max_length=256, null=True, blank=True)
     image_url = models.URLField(verbose_name="商品画像のリンク", null=True, blank=True)
+    image = models.ImageField(upload_to='photos/')
     price = models.PositiveSmallIntegerField(verbose_name="組価(税込)", null=True, blank=True)
     energy = models.PositiveSmallIntegerField(verbose_name="エネルギー", null=True, blank=True)
     protein = models.FloatField(verbose_name="タンパク質", null=True, blank=True)
