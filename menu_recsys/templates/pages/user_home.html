@@ -106,32 +106,24 @@
 			function setimg(){
 				var p_id = 0;
 				var p_type = "{{ panda_type }}";
-				var type_num = 0;
+				var type_num = 0; //nomal
 				
 
-				if (p_type == "muscle"){
+				if (p_type == 3){ //"muscle"
 					type_num = 3
-				}else if(p_type == "slim"){
+				}else if(p_type == 1){ //"slim"
 					type_num = 6
 				}
 
 				var p_status = "{{ panda_status }}";
-				if (p_status == "fine"){
-					if ((count %150) < 50 ) {
-						p_id = 0 + type_num;
-					} else if ((count %150) < 100){
-						p_id = 1 + type_num;
-					} else{
-						p_id = 2 + type_num;
-					}
-				}else if(p_status == "notgood"){
+				if(p_status < 500){ //notgood
 					adjust_x = 50;
 					if ((count %100) < 50 ) {
 						p_id = 9;
 					} else {
 						p_id = 10;
 					}
-				}else if(p_status == "fat"){
+				}else if(p_status > 1000){ //fat
 					if ((count %150) < 50 ) {
 						p_id = 11;
 					} else if ((count %150) < 75){
@@ -140,6 +132,14 @@
 						p_id = 13;
 					} else{
 						p_id = 12;
+					}
+				}else{ //fine
+					if ((count %150) < 50 ) {
+						p_id = 0 + type_num;
+					} else if ((count %150) < 100){
+						p_id = 1 + type_num;
+					} else{
+						p_id = 2 + type_num;
 					}
 				}
 				panda_img = img[p_id];
@@ -205,8 +205,8 @@
 				//気温の表示
 				ctx.fillStyle = 'rgba(255, 0, 0)';
 				ctx.font = 'bold 20px sans-serif'
-				var maxt_text = "最高気温　" + "{{ max_temp }}"
-				var mint_text = "最低気温　" + "{{ min_temp }}"
+				var maxt_text = "最高気温　" + "{{ max_temp }}" + "℃"
+				var mint_text = "最低気温　" + "{{ min_temp }}" + "℃"
 
 				//文字の背景
 				var maxt_w = ctx.measureText(maxt_text);
