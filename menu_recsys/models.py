@@ -21,26 +21,6 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
 
         return self.create_user(user_account, password, **extra_fields)
-from multiselectfield import MultiSelectField
-from multiselectfield.validators import MaxValueMultiFieldValidator
-
-
-# Create your models here.
-
-class UserManager(BaseUserManager):
-    def create_user(self, user_account, password=None, **extra_fields):
-        if not user_account:
-            raise ValueError('アカウントを入力してください（必須）')
-        user = self.model(user_account=user_account, **extra_fields)
-        user.set_password(password)
-        user.save()
-        return user
-
-    def create_superuser(self, user_account, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-
-        return self.create_user(user_account, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):

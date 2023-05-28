@@ -13,16 +13,23 @@
             document.getElementById("video").height = window.innerHeight;
         </script>
 
+        <canvas id="canvas" style="display:none;"></canvas>
+
+        <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="capture_form" style="text-align: center;">
+            {% csrf_token %}
+            <input type="hidden" name="image" id="capture_image">
+            <label>食堂</label>
+                <select class="form-control" name="canteen_id">
+                    {% for canteen in canteens%}
+                        <option value="{{ canteen.1 }}">{{ canteen.0 }}</option>
+                    {% endfor %}
+                </select>
+        </form>
+
         <div class="has-text-centered" style="margin: 20px">
             <button id="capture" class="button is-black">撮影する</button>
         </div>
     </div>
-    <canvas id="canvas" style="display:none;"></canvas>
-
-    <form action="{% url 'lunch_photo' %}" method="post" enctype="multipart/form-data" id="capture_form">
-        {% csrf_token %}
-        <input type="hidden" name="image" id="capture_image">
-    </form>
 
     <script>
         // 外カメラから映像を取得

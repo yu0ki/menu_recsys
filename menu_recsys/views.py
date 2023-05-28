@@ -237,21 +237,34 @@ def allergen(request, user_account):
 def dame(request):
     return render(request, "pages/dame.html")
 
+
 # カメラページ
 # ストリーミング画像・映像を表示するview
 def camera(request):
-    return render(request, 'pages/camera.html', {})
+    canteens = [
+        ["中央食堂", 650111],
+        ["北部食堂", 650113],
+        ["吉田食堂", 650112],
+        ["ルネ", 650118]
+    ]
+    return render(request, 'pages/camera.html', {"canteens": canteens})
 
 
 # 撮った写真を表示
 def lunch_photo(request):
     # Base64エンコードされた画像データ取得
     base64_image = request.POST.get('image')
+    canteen_id = request.POST.get('canteen_id')
 
     # データベースからメニュー情報取得
     # TODO: searchページと連携して食堂を絞り込む
     # Menu database から image_urlとdish_nameを取得してdict型に変換
-    menus = list(Menu.objects.all().values("image_url", "dish_name", "id"))
+    print(canteen_id)
+    if canteen_id:
+        menus = (list(Menu.objects.filter(canteen_id=canteen_id)
+                      .values("image_url", "dish_name", "id")))
+    else:
+        menus = list(Menu.objects.all().values("image_url", "dish_name", "id"))
 
     # 画像処理
     detected_dish_info = object_detect(base64_image, menus)
